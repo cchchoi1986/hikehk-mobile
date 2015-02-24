@@ -1,0 +1,76 @@
+<ion-view view-title="Trail Info">
+  <ion-content>
+  
+    <div class="list card">
+
+      <div class="trail-imagebox">
+        <img class="trail-image" src="http://www.oasistrek.com/{{ trail.photo_urls[0] }}">
+        <img class="trail-image" src="http://www.oasistrek.com/{{ trail.photo_urls[1] }}">
+        <img class="trail-image" src="http://www.oasistrek.com/{{ trail.photo_urls[2] }}">
+      </div>
+
+      <div class="item">
+        <!-- <img src="http://www.oasistrek.com/{{ trail.photo_urls[0] }}"> -->
+        <h1 ng-click="make_stars(trail.difficulty)" class="">{{ trail.name }}</h1>
+          <ul ng-class="{'truncate-description' : !full}" class="description">
+            <li class="desc-line" ng-repeat="description in trail.description">"{{ description }}"</li>
+          </ul>
+          <a ng-click="full=!full" ng-hide="full" class="description-show" href="">See full description</a>
+      </div>
+
+      <div class="item">
+        <div class="row">
+          <div class="col">Difficulty
+            <ul ng-bind-html="make_stars(trail.difficulty)"></ul>
+          </div>
+          <div class="col infoquants">
+            Distance: 
+            <span> 
+              {{ trail.distance }} km 
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">Scenery
+            <ul ng-bind-html="make_stars(trail.scenery)"></ul>
+          </div>
+          <div class="col infoquants">Duration: {{ trail.duration }} hrs</div>
+        </div>
+      </div>
+
+      <div class="item">
+        <h2>Food Supply:</h2>
+        <ul>
+          <li ng-repeat="food in trail.food_supply">
+            - {{ food }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="item">
+        <h2>Warnings:</h2>
+        <ul>
+          <li ng-repeat="warning in trail.warning">
+            - {{ warning }}
+          </li> 
+        </ul>
+      </div>
+
+      <div class="item">
+        <h2>See Regional Flora:</h2>
+        <p>
+        </p>
+      </div>
+
+      <div class="item">
+        <h2>See Regional Fauna:</h2>
+        <p>
+        </p>
+      </div>
+
+    </div>
+
+
+
+  </ion-content>
+</ion-view>

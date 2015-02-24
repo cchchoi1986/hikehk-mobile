@@ -1,1 +1,114 @@
-/* Empty. Add your own CSS if you like */
+.filter-list {
+  border: 2px solid #444;
+}
+
+.tab-title {
+  font-size: 16px;
+}
+
+div.filter-region {
+  text-align: center;
+  font-size: 14px;
+}
+
+.regionlist > .item {
+  display: inline-block;
+  padding: 8px 0 8px 20px;
+  /*margin: 0 10px 0;*/
+  border: 0;
+  font-size: 90%;
+}
+
+.filter-list > div.item {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.ng-pristine.ng-untouched.ng-valid {
+  margin: 0 10px;
+  /*padding: 0;*/
+}
+
+.slider-title {
+  color: #000;
+  text-align: center;
+  font-size: 14px;
+  margin: 10px 0 -20px;
+}
+
+.icon.low {
+  font-size: 25px;
+}
+
+.icon.high {
+  font-size: 35px;
+}
+
+.resultslink {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+.resultslink > button.button-full {
+  margin: 0;
+  padding: 0;
+}
+
+.trail-imagebox {
+  padding: 0;
+}
+
+.trail-image {
+  height: 25%;
+  width: 33%;
+  display: inline-block;
+  margin: 0 -4px 0 0;
+  padding: 0;
+}
+
+.description {
+  overflow: hidden;
+  display: block;
+}
+.truncate-description {
+  max-height: 60px;
+}
+
+.description-show {
+  font-size: 12px;
+}
+
+.infoquants {
+  /*margin: 5px 0 0 0;*/
+}
+
+h2 {
+  font-weight: bold;
+}
+
+ul > li {
+  white-space: normal;
+  font-style: italic;
+  font-size: 13px;
+}
+
+/*ionic rating*/
+ul.rating li {
+  display: inline;
+  border: 0px;
+  background: none;
+  padding: 0 2px 0 0;
+}
+ul.rating li i {
+  /*font-size: 30px;*/
+}
+/*ionic rating*/
+
+.angular-google-map-container { 
+  text-align: center;
+  z-index: 20;
+  height: 85vh;
+  border: 1px solid $primary-border-color;
+}
