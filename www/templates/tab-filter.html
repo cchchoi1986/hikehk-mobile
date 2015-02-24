@@ -1,0 +1,68 @@
+<ion-view view-title="Search">
+  <ion-content>
+
+    <button ng-click="hidden=!hidden" class="resultslink button button-full button-outline button-balanced">
+      Hide Filter
+    </button>
+
+    <ion-list ng-hide="hidden">
+      <div class="filter-list">
+        <div class="filter-region">
+          <i class="icon ion-map"></i>
+          Select Region(s): 
+          <div class="regionlist row">
+            <ion-checkbox class="col col-30" ng-repeat="region in search_parameters.regions" ng-model="region.checked" ng-checked="region.checked">{{ region.text}}</ion-checkbox>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="slider-title">Difficulty: {{search_parameters.difficulty}} / 10</div>
+          <div class="range">
+            <i class="icon ion-ios-pulse low"></i>
+            <input type="range" name="search_parameters.difficulty" min="0" max="10" value="search_parameters.difficulty" step="1" ng-model="search_parameters.difficulty">
+            <i class="icon ion-ios-pulse-strong high"></i>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="slider-title">Scenery: {{search_parameters.scenery}} / 10</div>
+          <div class="range">
+            <i class="icon ion-image"></i>
+            <input type="range" name="search_parameters.scenery" min="0" max="10" value="search_parameters.scenery" step="1" ng-model="search_parameters.scenery">
+            <i class="icon ion-images high"></i>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="slider-title">Distance: {{search_parameters.distance}} km</div>
+          <div class="range">
+            <i class="icon ion-android-walk low"></i>
+            <input type="range" name="search_parameters.distance" min="0" max="24" value="search_parameters.distance" step="1" ng-model="search_parameters.distance">
+            <i class="icon ion-android-walk high"></i>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="slider-title">Duration: {{search_parameters.duration}} hours</div>
+          <div class="range">
+            <i class="icon ion-ios-stopwatch low"></i>
+            <input type="range" name="search_parameters.duration" min="0" max="10" value="search_parameters.duration" step="1" ng-model="search_parameters.duration">
+            <i ng-click="hihi()" class="icon ion-ios-stopwatch-outline high"></i>
+          </div>
+        </div>
+      </div>
+    </ion-list>
+
+    <div class="list">
+
+        <a ng-repeat="result in results" class="item item-thumbnail-left" href="#/tab/info">
+          <img src="http://www.oasistrek.com/{{result.photo_urls[0]}}">
+          <h2>{{ result.name }}</h2>
+          <p>Difficulty: {{ result.difficulty }}</p>
+          <p>Scenery: {{ result.scenery }}</p>
+        </a>
+
+    </div>
+
+  </ion-content>
+</ion-view>
