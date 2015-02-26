@@ -43,6 +43,7 @@ div.filter-region {
 
 .icon.high {
   font-size: 35px;
+  margin: -7px 2px 0 -2px;
 }
 
 .resultslink {
@@ -68,6 +69,17 @@ div.filter-region {
   padding: 0;
 }
 
+.item > .info-region {
+  padding: 0;
+  margin: 0;
+}
+
+.item > .info-title {
+  padding: 5px 0;
+  margin: 5px 0;
+  font-size: 9vw;
+}
+
 .description {
   overflow: hidden;
   display: block;
@@ -80,8 +92,12 @@ div.filter-region {
   font-size: 12px;
 }
 
-.infoquants {
-  /*margin: 5px 0 0 0;*/
+div > a {
+  text-decoration: none;
+}
+
+.qualrating {
+  font-size: 14px;
 }
 
 h2 {
@@ -109,6 +125,6 @@ ul.rating li i {
 .angular-google-map-container { 
   text-align: center;
   z-index: 20;
-  height: 85vh;
+  height: 80vh;
   border: 1px solid $primary-border-color;
 }
