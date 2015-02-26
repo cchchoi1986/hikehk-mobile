@@ -16,19 +16,19 @@
         </div>
 
         <div class="item">
-          <div class="slider-title">Difficulty: {{search_parameters.difficulty}} / 5</div>
+          <div class="slider-title">Difficulty: {{search_parameters.difficulty}} / 10</div>
           <div class="range">
             <i class="icon ion-ios-pulse low"></i>
-            <input type="range" name="search_parameters.difficulty" min="0" max="5" value="search_parameters.difficulty" step="0.5" ng-model="search_parameters.difficulty">
+            <input type="range" name="search_parameters.difficulty" min="0" max="10" value="search_parameters.difficulty" step="1" ng-model="search_parameters.difficulty">
             <i class="icon ion-ios-pulse-strong high"></i>
           </div>
         </div>
 
         <div class="item">
-          <div class="slider-title">Scenery: {{search_parameters.scenery}} / 5</div>
+          <div class="slider-title">Scenery: {{search_parameters.scenery}} / 10</div>
           <div class="range">
             <i class="icon ion-image"></i>
-            <input type="range" name="search_parameters.scenery" min="0" max="5" value="search_parameters.scenery" step="0.5" ng-model="search_parameters.scenery">
+            <input type="range" name="search_parameters.scenery" min="0" max="10" value="search_parameters.scenery" step="1" ng-model="search_parameters.scenery">
             <i class="icon ion-images high"></i>
           </div>
         </div>
@@ -55,17 +55,11 @@
 
     <div class="list">
 
-        <a ng-repeat="result in results.trails" class="item item-thumbnail-left" href="#/tab/info/{{result.id}}">
+        <a ng-repeat="result in results" class="item item-thumbnail-left" href="#/tab/info">
           <img src="http://www.oasistrek.com/{{result.photo_urls[0]}}">
           <h2>{{ result.name }}</h2>
-          <div class="row">
-            <div class="col-50 qualrating">Difficulty:
-              <ul ng-bind-html="make_stars(result.difficulty)"></ul>
-            </div>
-            <div class="col-50 qualrating">Scenery:
-              <ul ng-bind-html="make_stars(result.scenery)"></ul>
-            </div>
-          </div>
+          <p>Difficulty: {{ result.difficulty }}</p>
+          <p>Scenery: {{ result.scenery }}</p>
         </a>
 
     </div>

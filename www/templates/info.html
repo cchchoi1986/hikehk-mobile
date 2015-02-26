@@ -1,4 +1,4 @@
-<ion-view view-title="Trail">
+<ion-view view-title="Trail Info">
   <ion-content>
   
     <div class="list card">
@@ -10,12 +10,12 @@
       </div>
 
       <div class="item">
-        <div class="info-region">Region</div>
-        <div class="row info-title">{{ trail.name }}</div>
-        <ul ng-class="{'truncate-description' : !full}" class="description">
-          <li class="desc-line" ng-repeat="description in trail.description">"{{ description }}"</li>
-        </ul>
-        <a ng-click="full=!full" ng-hide="full" class="description-show" href="">See full description</a>
+        <!-- <img src="http://www.oasistrek.com/{{ trail.photo_urls[0] }}"> -->
+        <h1 ng-click="make_stars(trail.difficulty)" class="">{{ trail.name }}</h1>
+          <ul ng-class="{'truncate-description' : !full}" class="description">
+            <li class="desc-line" ng-repeat="description in trail.description">"{{ description }}"</li>
+          </ul>
+          <a ng-click="full=!full" ng-hide="full" class="description-show" href="">See full description</a>
       </div>
 
       <div class="item">
@@ -39,11 +39,6 @@
       </div>
 
       <div class="item">
-        <h2>Weather:</h2>
-        <div>Rainy</div>
-      </div>
-
-      <div class="item">
         <h2>Food Supply:</h2>
         <ul>
           <li ng-repeat="food in trail.food_supply">
@@ -61,20 +56,16 @@
         </ul>
       </div>
 
-      <a href="#/tab/info/{{trail.id}}/floral">
-        <button class="item button button-full button-balanced">
-          See Regional Flora:
-        </button>
-      </a>
+      <div class="item">
+        <h2>See Regional Flora:</h2>
+        <p>
+        </p>
+      </div>
 
-      <a href="#/tab/info/{{trail.id}}/fauna">
-        <button class="item button button-full button-assertive">
-          See Regional Fauna:
-        </button>
-      </a>
-
-      <div class="trail-imagebox">
-        <img ng-repeat="photo in trail.photo_urls" class="trail-image" src="http://www.oasistrek.com/{{ photo }}">
+      <div class="item">
+        <h2>See Regional Fauna:</h2>
+        <p>
+        </p>
       </div>
 
     </div>
