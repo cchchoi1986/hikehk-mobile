@@ -12,7 +12,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('FilterCtrl', function($scope, $http) {
+.controller('FilterCtrl', function($scope, $http, $timeout) {
   $scope.search_parameters = {};
   $scope.search_parameters.difficulty = 5;
   $scope.search_parameters.scenery = 5;
@@ -29,11 +29,99 @@ angular.module('starter.controllers', [])
     console.log($scope.search_parameters)
   }
 
+
+  var timeOut = 1000;
+  var timeoutPromise;
+  $scope.$watch("search_parameters.difficulty", function() {
+    $timeout.cancel(timeoutPromise);
+    timeoutPromise = $timeout(function(){   //Set timeout
+      $scope.loading = true;
+      console.log("hihi");
+      submitParams();
+      $scope.loading = false;
+    }, timeOut);
+  });
+  $scope.$watch("search_parameters.duration", function() {
+    $timeout.cancel(timeoutPromise);
+    timeoutPromise = $timeout(function(){   //Set timeout
+      $scope.loading = true;
+      console.log("hihi");
+      submitParams();
+      $scope.loading = false;
+    }, timeOut);
+  });
+  $scope.$watch("search_parameters.distance", function() {
+    $timeout.cancel(timeoutPromise);
+    timeoutPromise = $timeout(function(){   //Set timeout
+      $scope.loading = true;
+      console.log("hihi");
+      submitParams();
+      $scope.loading = false;
+    }, timeOut);
+  });
+  $scope.$watch("search_parameters.scenery", function() {
+    $timeout.cancel(timeoutPromise);
+    timeoutPromise = $timeout(function(){   //Set timeout
+      $scope.loading = true;
+      console.log("hihi");
+      submitParams();
+      $scope.loading = false;
+    }, timeOut);
+  });
+  $scope.$watch("search_parameters.regions[0].checked", function() {
+    $timeout.cancel(timeoutPromise);
+    timeoutPromise = $timeout(function(){   //Set timeout
+      $scope.loading = true;
+      console.log("hihi");
+      submitParams();
+      $scope.loading = false;
+    }, timeOut);
+  });
+  $scope.$watch("search_parameters.regions[1].checked", function() {
+    $timeout.cancel(timeoutPromise);
+    timeoutPromise = $timeout(function(){   //Set timeout
+      $scope.loading = true;
+      console.log("hihi");
+      submitParams();
+      $scope.loading = false;
+    }, timeOut);
+  });
+  $scope.$watch("search_parameters.regions[2].checked", function() {
+    $timeout.cancel(timeoutPromise);
+    timeoutPromise = $timeout(function(){   //Set timeout
+      $scope.loading = true;
+      console.log("hihi");
+      submitParams();
+      $scope.loading = false;
+    }, timeOut);
+  });
+
+
+  // request URL
+  // "http://www.google.com/search?key1=value1&key2=value2"
+  // "http://www.google.com/search ? key1 = value1 & key2 = value2"
+
+  // in routes
+  // get "search" => "controller#action"
+  var submitParams = function() {
+    $http.get('http://localhost:3000/search?duration='+$scope.search_parameters.duration+"&difficulty="+$scope.search_parameters.difficulty+"&scenery="+$scope.search_parameters.scenery+"&distance="+$scope.search_parameters.distance+"&hk="+$scope.search_parameters.regions[0].checked+"&kln="+$scope.search_parameters.regions[1].checked+"&nt="+$scope.search_parameters.regions[2].checked).success(function(data, status, xhr){
+        $scope.results = data;
+        console.log($scope.search_parameters.regions.checked)
+        console.log($scope.results);
+    })
+  }
+
+
+  
+  // in rails controller
+  // params[:key1] -> value1
+  // params[:key2] -> value2
+
   // get results from database
-  $http.get('https://hikehk.herokuapp.com/trails').success(function(data, status, xhr){
-      $scope.results = data;
-      console.log($scope.results);
-  })
+  // $http.get('https://hikehk.herokuapp.com/trails').success(function(data, status, xhr){
+  //     $scope.results = data;
+  //     console.log($scope.results);
+  // })
 
   $scope.make_stars = function(factor) {
     range = 5;
