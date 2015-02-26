@@ -75,11 +75,29 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
   .state('tab.info', {
-    url: '/info',
+    url: '/info/:id',
     views: {
       'tab-filter': {
         templateUrl: 'templates/info.html',
         controller: 'InfoCtrl'
+      }
+    }
+  })
+  .state('tab.floral', {
+    url: '/info/:id/floral',
+    views: {
+      'tab-filter': {
+        templateUrl: 'templates/floral.html',
+        controller: 'FloralCtrl'
+      }
+    }
+  })
+  .state('tab.fauna', {
+    url: '/info/:id/fauna',
+    views: {
+      'tab-filter': {
+        templateUrl: 'templates/fauna.html',
+        controller: 'FaunaCtrl'
       }
     }
   })
