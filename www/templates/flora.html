@@ -7,21 +7,21 @@
     <script id="plant-modal.html" type="text/ng-template">
       <ion-modal-view>
         <ion-header-bar>
-          <h1 class="title">{{ selected.common_name }}</h1>
+          <h1 class="title">{{ selectedplant.common_name }}</h1>
         </ion-header-bar>
         <ion-content scroll="false">
           <ion-slide-box on-slide-changed="slideHasChanged($index)">
-            <ion-slide ng-repeat="photo in selected.photo_urls">
+            <ion-slide ng-repeat="photo in selectedplant.photo_urls">
               <img class="sliderbox-image" src="http://herbarium.gov.hk/{{ photo }}">
             </ion-slide>
           </ion-slide-box>
           <div class="item">
             <ul>
-              <li>Family Name: {{ selected.family_name}}</li>
+              <li>Family Name: {{ selectedplant.family_name}}</li>
               <li>Scientific Name: {{ selected.scientific_name}}</li>
-              <li>Plant Type: {{ selected.plant_type}}</li>
-              <li>Chinese Name: {{ selected.chinese_name}}</li>
-              <li>Chinese Family Name: {{ selected.chinese_family_name}}</li>
+              <li>Plant Type: {{ selectedplant.plant_type}}</li>
+              <li>Chinese Name: {{ selectedplant.chinese_name}}</li>
+              <li>Chinese Family Name: {{ selectedplant.chinese_family_name}}</li>
             </ul>
           </div>
 

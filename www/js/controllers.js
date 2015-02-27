@@ -185,7 +185,7 @@ angular.module('starter.controllers', [])
   });
   $scope.openModal = function(plant) {
     $scope.modal.show();
-    $scope.selected = {
+    $scope.selectedplant = {
       id: plant.id,
       common_name: plant.common_name,
       family_name: plant.family_name,
@@ -230,8 +230,7 @@ angular.module('starter.controllers', [])
   });
   $scope.openModal = function(bird) {
     $scope.modal.show();
-    $scope.selected = {
-      id: bird.id,
+    $scope.selectedbird = {
       common_name: bird.common_name,
       scientific_name: bird.scientific_name,
       photo_url: bird.photo_url
