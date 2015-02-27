@@ -5,6 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
+
+// angular.module('urlConstant', []).constant('apiUrl', 'http://localhost:3000/')
+angular.module('urlConstant', []).constant('apiUrl', 'http://hikehk.herokuapp.com/')
+
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'uiGmapgoogle-maps'])
 
 .run(function($ionicPlatform) {
