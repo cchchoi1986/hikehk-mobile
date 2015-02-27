@@ -69,6 +69,11 @@ div.filter-region {
   padding: 0;
 }
 
+.hihi {
+  height: 100px;
+  width: 100px;
+}
+
 .item > .info-region {
   padding: 0;
   margin: 0;
@@ -86,6 +91,23 @@ div.filter-region {
 }
 .truncate-description {
   max-height: 60px;
+}
+
+.blockimg-wrap {
+  margin: 1px;
+  background: #444;
+}
+
+.blockimg {
+  height: 25vh;
+  width: 48vw;
+  margin: 0 0 -3px 4px;
+}
+
+.blockimg-birds {
+  height: 23vh;
+  overflow: hidden;
+  margin: 0 0 1px 5px;
 }
 
 .description-show {
@@ -110,21 +132,19 @@ ul > li {
   font-size: 13px;
 }
 
-/*ionic rating*/
-ul.rating li {
-  display: inline;
-  border: 0px;
-  background: none;
-  padding: 0 2px 0 0;
+.sliderbox-image {
+  width: 100vw;
+  height: 50vh;
 }
-ul.rating li i {
-  /*font-size: 30px;*/
+
+.sliderbox-image-birds {
+  width: 100vw;
+  max-height: 70vh;
 }
-/*ionic rating*/
 
 .angular-google-map-container { 
   text-align: center;
   z-index: 20;
-  height: 80vh;
-  border: 1px solid $primary-border-color;
+  height: 81vh;
+  border: 1px solid #444;
 }

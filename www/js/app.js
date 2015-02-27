@@ -83,12 +83,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
-  .state('tab.floral', {
-    url: '/info/:id/floral',
+  .state('tab.flora', {
+    url: '/info/:id/flora',
     views: {
       'tab-filter': {
-        templateUrl: 'templates/floral.html',
-        controller: 'FloralCtrl'
+        templateUrl: 'templates/flora.html',
+        controller: 'FloraCtrl'
       }
     }
   })
