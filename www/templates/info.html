@@ -61,17 +61,19 @@
         </ul>
       </div>
 
-      <a href="#/tab/info/{{trail.id}}/floral">
-        <button class="item button button-full button-balanced">
-          See Regional Flora:
-        </button>
-      </a>
+      <div class="item">
+        <a href="#/tab/info/{{trail.id}}/flora">
+          <button class="item button button-full button-balanced">
+            See Regional Flora:
+          </button>
+        </a>
 
-      <a href="#/tab/info/{{trail.id}}/fauna">
-        <button class="item button button-full button-assertive">
-          See Regional Fauna:
-        </button>
-      </a>
+        <a href="#/tab/info/{{trail.id}}/fauna">
+          <button class="item button button-full button-assertive">
+            See Regional Fauna:
+          </button>
+        </a>
+      </div>
 
       <div class="trail-imagebox">
         <img ng-repeat="photo in trail.photo_urls" class="trail-image" src="http://www.oasistrek.com/{{ photo }}">

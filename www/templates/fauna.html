@@ -1,7 +1,28 @@
 <ion-view view-title="Regional Fauna">
   <ion-content>
+    <div class="blockimg-wrap">
       <div>
-        
+        <img  ng-click="openModal(bird)" class="blockimg-birds" ng-repeat="bird in birds.birds" src="http://{{ bird.photo_url }}">
       </div>
+      <!-- <div ng-repeat="bird in birds.birds">{{ bird.common_name }}</div> -->
+    </div>
+    <script id="bird-modal.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar>
+          <h1 class="title">{{ selected.common_name }}</h1>
+        </ion-header-bar>
+        <ion-content scroll="false">
+          <img class="sliderbox-image-birds" src="http://{{ selected.photo_url }}">
+          <div class="item">
+            <ul>
+              <li>Scientific Name: {{ selected.scientific_name}}</li>
+            </ul>
+          </div>
+
+
+          <button ng-click="closeModal()" class="button button-full button-assertive">Back</button>
+        </ion-content>
+      </ion-modal-view>
+    </script>
   </ion-content>
 </ion-view>

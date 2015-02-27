@@ -144,7 +144,7 @@ angular.module('starter.controllers', [])
 
 .controller('InfoCtrl', function($scope, $http, $stateParams) {
 
-  $http.get('https://hikehk.herokuapp.com/trails/'+$stateParams.id).success(function(data, status, xhr){
+  $http.get('http://localhost:3000/trails/'+$stateParams.id).success(function(data, status, xhr){
     $scope.trail = data;
     console.log($scope.trail)
   })
@@ -169,12 +169,91 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('FloralCtrl', function($scope, $http) {
-  
+.controller('FloraCtrl', function($scope, $http, $stateParams, $ionicModal) {
+
+  $http.get('http://localhost:3000/trails/'+$stateParams.id+'/flora').success(function(data, status, xhr){
+  // $http.get('http://localhost:3000/flora').success(function(data, status, xhr){
+      $scope.plants = data;
+      console.log($scope.plants);
+  })
+
+  $ionicModal.fromTemplateUrl('plant-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function(plant) {
+    $scope.modal.show();
+    $scope.selected = {
+      id: plant.id,
+      common_name: plant.common_name,
+      family_name: plant.family_name,
+      scientific_name: plant.scientific_name,
+      plant_type: plant.plant_type,
+      chinese_name: plant.chinese_name,
+      chinese_family_name: plant.chinese_family_name,
+      photo_urls: plant.photo_urls
+    }
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
+  });
+
 })
 
-.controller('FaunaCtrl', function($scope, $http) {
+.controller('FaunaCtrl', function($scope, $http, $stateParams, $ionicModal) {
   
+  $http.get('http://localhost:3000/trails/'+$stateParams.id+'/fauna').success(function(data, status, xhr){
+  // $http.get('http://localhost:3000/fauna').success(function(data, status, xhr){
+      $scope.birds = data;
+      console.log($scope.birds);
+  })
+
+  $ionicModal.fromTemplateUrl('bird-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function(bird) {
+    $scope.modal.show();
+    $scope.selected = {
+      id: bird.id,
+      common_name: bird.common_name,
+      scientific_name: bird.scientific_name,
+      photo_url: bird.photo_url
+    }
+    console.log($scope.selected);
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
+  });
+
 })
 
 .controller("someController", function($scope, uiGmapGoogleMapApi) {
