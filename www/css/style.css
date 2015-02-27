@@ -90,7 +90,8 @@ div.filter-region {
 
 .blockimg-wrap {
   margin: 1px;
-  background: #444;
+  /*background: #444;*/
+  /*min-height: 83vh;*/
 }
 
 .blockimg {

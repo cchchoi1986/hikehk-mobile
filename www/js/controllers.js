@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['urlConstant'])
 
 // .controller('DashCtrl', function($scope) {})
 .controller('MapCtrl', function($scope, $http) {
@@ -12,7 +12,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('FilterCtrl', function($scope, $http, $timeout) {
+.controller('FilterCtrl', function($scope, $http, $timeout, apiUrl) {
   $scope.search_parameters = {};
   $scope.search_parameters.difficulty = 5;
   $scope.search_parameters.scenery = 5;
@@ -104,7 +104,7 @@ angular.module('starter.controllers', [])
   // in routes
   // get "search" => "controller#action"
   var submitParams = function() {
-    $http.get('http://localhost:3000/search?duration='+$scope.search_parameters.duration+"&difficulty="+$scope.search_parameters.difficulty+"&scenery="+$scope.search_parameters.scenery+"&distance="+$scope.search_parameters.distance+"&hk="+$scope.search_parameters.regions[0].checked+"&kln="+$scope.search_parameters.regions[1].checked+"&nt="+$scope.search_parameters.regions[2].checked).success(function(data, status, xhr){
+    $http.get(apiUrl+'search?duration='+$scope.search_parameters.duration+"&difficulty="+$scope.search_parameters.difficulty+"&scenery="+$scope.search_parameters.scenery+"&distance="+$scope.search_parameters.distance+"&hk="+$scope.search_parameters.regions[0].checked+"&kln="+$scope.search_parameters.regions[1].checked+"&nt="+$scope.search_parameters.regions[2].checked).success(function(data, status, xhr){
         $scope.results = data;
         console.log($scope.search_parameters.regions.checked)
         console.log($scope.results);
@@ -142,9 +142,9 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('InfoCtrl', function($scope, $http, $stateParams) {
+.controller('InfoCtrl', function($scope, $http, $stateParams, apiUrl) {
 
-  $http.get('http://localhost:3000/trails/'+$stateParams.id).success(function(data, status, xhr){
+  $http.get(apiUrl+'trails/'+$stateParams.id).success(function(data, status, xhr){
     $scope.trail = data;
     console.log($scope.trail)
   })
@@ -169,9 +169,9 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('FloraCtrl', function($scope, $http, $stateParams, $ionicModal) {
+.controller('FloraCtrl', function($scope, $http, $stateParams, $ionicModal, apiUrl) {
 
-  $http.get('http://localhost:3000/trails/'+$stateParams.id+'/flora').success(function(data, status, xhr){
+  $http.get(apiUrl+'trails/'+$stateParams.id+'/flora').success(function(data, status, xhr){
   // $http.get('http://localhost:3000/flora').success(function(data, status, xhr){
       $scope.plants = data;
       console.log($scope.plants);
@@ -214,9 +214,9 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('FaunaCtrl', function($scope, $http, $stateParams, $ionicModal) {
+.controller('FaunaCtrl', function($scope, $http, $stateParams, $ionicModal, apiUrl) {
   
-  $http.get('http://localhost:3000/trails/'+$stateParams.id+'/fauna').success(function(data, status, xhr){
+  $http.get(apiUrl+"trails/"+$stateParams.id+'/fauna').success(function(data, status, xhr){
   // $http.get('http://localhost:3000/fauna').success(function(data, status, xhr){
       $scope.birds = data;
       console.log($scope.birds);
