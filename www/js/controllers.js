@@ -1,96 +1,221 @@
 angular.module('starter.controllers', ['urlConstant'])
 
 // .controller('DashCtrl', function($scope) {})
-.controller('MapCtrl', function($scope, $http) {
+.controller('MapCtrl', function($scope, $http, uiGmapGoogleMapApi, $cordovaGeolocation) {
+
+  var hikeMapStyle = [
+    {
+      "featureType":"landscape.natural",
+      "elementType":"geometry.fill",
+      "stylers":[
+        {"visibility":"on"},
+        {"color":"#e0efef"}
+      ]
+    },
+    {
+      "featureType":"poi",
+      "elementType":"geometry.fill",
+      "stylers":[
+        {"visibility":"on"},
+        {"hue":"#1900ff"},
+        {"color":"#c0e8e8"}
+      ]
+    },
+    {
+      "featureType":"road",
+      "elementType":"geometry",
+      "stylers":[
+        {"lightness":100},
+        {"visibility":"simplified"}
+      ]
+    },
+    {
+      "featureType":"road",
+      "elementType":"labels",
+      "stylers":[
+        {"visibility":"off"}
+      ]
+    },
+    {
+      "featureType":"transit.line",
+      "elementType":"geometry",
+      "stylers":[
+        {"visibility":"on"},
+        {"lightness":700}
+      ]
+    },
+    {
+      "featureType":"water",
+      "elementType":"all",
+      "stylers":[
+        {"color":"#7dcdcd"}
+      ]
+    }
+  ];
+
   $scope.map = 
   { 
     center: { 
       latitude: 22.3700556,
       longitude: 114.1223784
     },
-    zoom: 11
+    zoom: 11,
+    options: {
+      scrollwheel: true,
+      styles: hikeMapStyle,
+      panControl:false,
+      // zoomControl:true,
+      // zoomControlOptions: {
+      //     style: google.maps.ZoomControlStyle.SMALL,
+      //     position: google.maps.ControlPosition.LEFT_BOTTOM
+      // },
+      mapTypeControl:false,
+      scaleControl:false,
+      streetViewControl:false,
+      minZoom: 10,
+      maxZoom: 16
+    }
   };
+
+  
+
+  var posOptions = {timeout: 10000, enableHighAccuracy: false};
+  $cordovaGeolocation
+    .getCurrentPosition(posOptions)
+    .then(function (position) {
+      var lat  = position.coords.latitude
+      var long = position.coords.longitude
+
+      return $scope.myLocation = 
+      {
+        id: 0,
+        coords: {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        },
+        icon: "http://www.eightgables.com/interactive/location/xstar.png,qver=1.0.40224.1820.pagespeed.ic.R-WLcTtD1J.png"
+      };
+    }, function(err) {
+      // error
+    });
+
+  // var watchOptions = {
+  //   frequency : 1000,
+  //   timeout : 3000,
+  //   enableHighAccuracy: false // may cause errors if true
+  // };
+
+  $scope.myLocation = {
+    id: 0,
+    coords: {
+      latitude: 0,
+      longitude: 0
+    }
+  };
+  
+  // var watch = $cordovaGeolocation.watchPosition(watchOptions);
+  // watch.then(
+  //   null,
+  //   function(err) {
+  //     // error
+  //   },
+  //   function(position) {
+  //     var lat  = position.coords.latitude;
+  //     var long = position.coords.longitude;
+  //     $scope.mycoords = {
+  //       latitude: position.coords.latitude,
+  //       longitude: position.coords.longitude
+  //     }
+  //     console.log($scope.mycoords);
+  // });
+
+  $scope.mylocation = {
+    id: 0,
+    coords: {
+      latitude: 40.1451,
+      longitude: -99.6680
+    }
+  };
+
+  
+
+  // watch.clearWatch();
+  // OR
+  // $cordovaGeolocation.clearWatch(watch)
+    // .then(function(result) {
+    //   // success
+    //   }, function (error) {
+    //   // error
+    // });
+
 })
 
 .controller('FilterCtrl', function($scope, $http, $timeout, apiUrl) {
-  $scope.search_parameters = {};
-  $scope.search_parameters.difficulty = 5;
-  $scope.search_parameters.scenery = 5;
-  $scope.search_parameters.distance = 24;
-  $scope.search_parameters.duration = 10;
-  $scope.search_parameters.regions = [
+  $scope.searchParameters = {};
+  $scope.searchParameters.difficulty = 5;
+  $scope.searchParameters.scenery = 5;
+  $scope.searchParameters.distance = 24;
+  $scope.searchParameters.duration = 10;
+  $scope.searchParameters.regions = [
     { text: "HK", checked: true },
     { text: "KLN", checked: true },
     { text: "N.T.", checked: true }
   ];
 
-  // test print out search params
-  $scope.hihi = function () {
-    console.log($scope.search_parameters)
-  }
-
-
   var timeOut = 1000;
   var timeoutPromise;
-  $scope.$watch("search_parameters.difficulty", function() {
+  $scope.$watch("searchParameters.difficulty", function() {
+    $scope.loading = true;
     $timeout.cancel(timeoutPromise);
     timeoutPromise = $timeout(function(){   //Set timeout
-      $scope.loading = true;
-      console.log("hihi");
       submitParams();
       $scope.loading = false;
     }, timeOut);
   });
-  $scope.$watch("search_parameters.duration", function() {
+  $scope.$watch("searchParameters.duration", function() {
+    $scope.loading = true;
     $timeout.cancel(timeoutPromise);
     timeoutPromise = $timeout(function(){   //Set timeout
-      $scope.loading = true;
-      console.log("hihi");
       submitParams();
       $scope.loading = false;
     }, timeOut);
   });
-  $scope.$watch("search_parameters.distance", function() {
+  $scope.$watch("searchParameters.distance", function() {
+    $scope.loading = true;
     $timeout.cancel(timeoutPromise);
     timeoutPromise = $timeout(function(){   //Set timeout
-      $scope.loading = true;
-      console.log("hihi");
       submitParams();
       $scope.loading = false;
     }, timeOut);
   });
-  $scope.$watch("search_parameters.scenery", function() {
+  $scope.$watch("searchParameters.scenery", function() {
+    $scope.loading = true;
     $timeout.cancel(timeoutPromise);
     timeoutPromise = $timeout(function(){   //Set timeout
-      $scope.loading = true;
-      console.log("hihi");
       submitParams();
       $scope.loading = false;
     }, timeOut);
   });
-  $scope.$watch("search_parameters.regions[0].checked", function() {
+  $scope.$watch("searchParameters.regions[0].checked", function() {
+    $scope.loading = true;
     $timeout.cancel(timeoutPromise);
     timeoutPromise = $timeout(function(){   //Set timeout
-      $scope.loading = true;
-      console.log("hihi");
       submitParams();
       $scope.loading = false;
     }, timeOut);
   });
-  $scope.$watch("search_parameters.regions[1].checked", function() {
+  $scope.$watch("searchParameters.regions[1].checked", function() {
+    $scope.loading = true;
     $timeout.cancel(timeoutPromise);
     timeoutPromise = $timeout(function(){   //Set timeout
-      $scope.loading = true;
-      console.log("hihi");
       submitParams();
       $scope.loading = false;
     }, timeOut);
   });
-  $scope.$watch("search_parameters.regions[2].checked", function() {
+  $scope.$watch("searchParameters.regions[2].checked", function() {
+    $scope.loading = true;
     $timeout.cancel(timeoutPromise);
     timeoutPromise = $timeout(function(){   //Set timeout
-      $scope.loading = true;
-      console.log("hihi");
       submitParams();
       $scope.loading = false;
     }, timeOut);
@@ -104,9 +229,9 @@ angular.module('starter.controllers', ['urlConstant'])
   // in routes
   // get "search" => "controller#action"
   var submitParams = function() {
-    $http.get(apiUrl+'search?duration='+$scope.search_parameters.duration+"&difficulty="+$scope.search_parameters.difficulty+"&scenery="+$scope.search_parameters.scenery+"&distance="+$scope.search_parameters.distance+"&hk="+$scope.search_parameters.regions[0].checked+"&kln="+$scope.search_parameters.regions[1].checked+"&nt="+$scope.search_parameters.regions[2].checked).success(function(data, status, xhr){
+    $http.get(apiUrl+'search?duration='+$scope.searchParameters.duration+"&difficulty="+$scope.searchParameters.difficulty+"&scenery="+$scope.searchParameters.scenery+"&distance="+$scope.searchParameters.distance+"&hk="+$scope.searchParameters.regions[0].checked+"&kln="+$scope.searchParameters.regions[1].checked+"&nt="+$scope.searchParameters.regions[2].checked).success(function(data, status, xhr){
         $scope.results = data;
-        console.log($scope.search_parameters.regions.checked)
+        console.log($scope.searchParameters.regions.checked)
         console.log($scope.results);
     })
   }
@@ -123,18 +248,18 @@ angular.module('starter.controllers', ['urlConstant'])
   //     console.log($scope.results);
   // })
 
-  $scope.make_stars = function(factor) {
-    range = 5;
-    wholeDiff = range - factor;
-    stars = "";
-    for (var i = factor; i > 0; i--) {
-      if (i == 0.5) {
+  $scope.makeStars = function(factor) {
+    var range = 5;
+    var wholeDiff = range - factor;
+    var stars = "";
+    for (var j = factor; j > 0; j--) {
+      if (j === 0.5) {
         stars = stars + "<i class='icon ion-ios-star-half'></i>";
       } else {
         stars = stars + "<i class='icon ion-ios-star'></i>";
       }
     }
-    for (var i = wholeDiff; i > 0.5; i--) {
+    for (var k = wholeDiff; k > 0.5; k--) {
       stars = stars + "<i class='icon ion-ios-star-outline'></i>";
     }
     return stars;
@@ -149,18 +274,18 @@ angular.module('starter.controllers', ['urlConstant'])
     console.log($scope.trail)
   })
 
-  $scope.make_stars = function(factor) {
+  $scope.makeStars = function(factor) {
     range = 5;
     wholeDiff = range - factor;
     stars = "";
-    for (var i = factor; i > 0; i--) {
-      if (i == 0.5) {
+    for (var m = factor; m > 0; m--) {
+      if (m === 0.5) {
         stars = stars + "<i class='icon ion-ios-star-half'></i>";
       } else {
         stars = stars + "<i class='icon ion-ios-star'></i>";
       }
     }
-    for (var i = wholeDiff; i > 0.5; i--) {
+    for (var n = wholeDiff; n > 0.5; n--) {
       stars = stars + "<i class='icon ion-ios-star-outline'></i>";
     }
     // console.log(stars);
@@ -185,7 +310,7 @@ angular.module('starter.controllers', ['urlConstant'])
   });
   $scope.openModal = function(plant) {
     $scope.modal.show();
-    $scope.selectedplant = {
+    $scope.selectedPlant = {
       id: plant.id,
       common_name: plant.common_name,
       family_name: plant.family_name,
@@ -230,7 +355,7 @@ angular.module('starter.controllers', ['urlConstant'])
   });
   $scope.openModal = function(bird) {
     $scope.modal.show();
-    $scope.selectedbird = {
+    $scope.selectedBird = {
       common_name: bird.common_name,
       scientific_name: bird.scientific_name,
       photo_url: bird.photo_url
