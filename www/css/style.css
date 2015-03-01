@@ -1,28 +1,64 @@
 .filter-list {
-  border: 2px solid #444;
+  border: 2px solid #363636;
+  background: #363636;
+  color: #e0efef;
+  opacity: 0.8;
+}
+
+.bar-custom-dark {
+  background: #363636;
+  color: #e0efef;
+}
+
+.tabs-custom-dark > .tabs {
+  background: #363636;
+  color: #e0efef;
+}
+
+.map-wrap {
+  /*background: #363636;*/
+  padding: 0;
+}
+
+.angular-google-map-container { 
+  text-align: center;
+  z-index: 20;
+  height: 84vh;
 }
 
 .tab-title {
-  font-size: 16px;
+  font-size: 14px;
 }
 
-div.filter-region {
+.filter-region {
   text-align: center;
   font-size: 14px;
+}
+
+.regionlist {
+  position: relative;
+  top: 1px;
+  /*z-index: 1000;*/
 }
 
 .regionlist > .item {
   display: inline-block;
   padding: 8px 0 8px 20px;
-  /*margin: 0 10px 0;*/
   border: 0;
   font-size: 90%;
+}
+
+div.regionlist.row > label {
+  background: #363636;
+  color: #e0efef;
 }
 
 .filter-list > div.item {
   padding: 0;
   margin: 0;
   border: 0;
+  background: #363636;
+  color: #e0efef;
 }
 
 .ng-pristine.ng-untouched.ng-valid {
@@ -31,19 +67,25 @@ div.filter-region {
 }
 
 .slider-title {
-  color: #000;
+  color: #e0efef;
   text-align: center;
   font-size: 14px;
-  margin: 10px 0 -20px;
+  background: #363636;
+  color: #e0efef;
 }
 
-.icon.low {
-  font-size: 25px;
+.results-list {
+  overflow: scroll;
+  height: 55vh;
+}
+
+.results-list a {
+  color: #363636;
+  background: #e0efef;
 }
 
 .icon.high {
   font-size: 35px;
-  margin: -7px 2px 0 -2px;
 }
 
 .resultslink {
@@ -52,9 +94,24 @@ div.filter-region {
   padding: 0;
 }
 
-.resultslink > button.button-full {
+.resultslink.button.button-full {
   margin: 0;
   padding: 0;
+  position: relative;
+  top: 0;
+  z-index: 1000;
+}
+
+.black {
+  background: black;
+  height: 55vh;
+  width: 100%;
+}
+
+.load-image {
+  height: 25vh;
+  width: 80vw;
+  margin: 15vh 0 0 10vw;
 }
 
 .trail-imagebox {
@@ -84,6 +141,7 @@ div.filter-region {
   overflow: hidden;
   display: block;
 }
+
 .truncate-description {
   max-height: 60px;
 }
@@ -138,9 +196,3 @@ ul > li {
   max-height: 70vh;
 }
 
-.angular-google-map-container { 
-  text-align: center;
-  z-index: 20;
-  height: 81vh;
-  border: 1px solid #444;
-}

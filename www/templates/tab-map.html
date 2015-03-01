@@ -1,9 +1,20 @@
 <ion-view view-title="Map">
-  <ion-content scroll="false" class="padding">
-    
+  <ion-content scroll="false" class="padding map-wrap">
+    <!-- <button ng-click="hihi()">hihi</button> -->
     <ui-gmap-google-map 
-      center='map.center' 
-      zoom='map.zoom'>
+        center='map.center'
+        zoom  ='map.zoom'
+        draggable="true" 
+        options="map.options">
+
+        <ui-gmap-marker 
+            coords="myLocation.coords" 
+            options="myLocation.options" 
+            events="myLocation.events" 
+            idkey="myLocation.id"
+            icon="myLocation.icon">
+        </ui-gmap-marker>
+
     </ui-gmap-google-map>
 
 
