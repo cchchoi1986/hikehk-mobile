@@ -1,6 +1,5 @@
 <ion-view view-title="Map">
   <ion-content scroll="false" class="padding map-wrap">
-    <!-- <button ng-click="hihi()">hihi</button> -->
     <ui-gmap-google-map 
         center='map.center'
         zoom  ='map.zoom'
@@ -9,11 +8,36 @@
 
         <ui-gmap-marker 
             coords="myLocation.coords" 
-            options="myLocation.options" 
-            events="myLocation.events" 
             idkey="myLocation.id"
             icon="myLocation.icon">
         </ui-gmap-marker>
+
+        <ui-gmap-markers
+          models  = 'trailMarkers'
+          click  =  "click"
+          coords  = "'self'"
+          icon    = "'icon'">
+        </ui-gmap-markers>
+
+
+        <!-- <ui-gmap-marker 
+            coords="selectedTrail.coords" 
+            options="selectedTrail.options" 
+            events="selectedTrail.events" 
+            idkey="selectedTrail.id"
+            icon="selectedTrail.icon">
+        </ui-gmap-marker> -->
+        <!-- <ui-gmap-polyline 
+          ng-repeat="p in polylines" 
+          path="p.path" 
+          stroke="p.stroke" 
+          visible='p.visible'
+          geodesic='p.geodesic' 
+          fit="false" 
+          editable="p.editable" 
+          draggable="p.draggable" 
+          icons='p.icons'>
+        </ui-gmap-polyline> -->
 
     </ui-gmap-google-map>
 

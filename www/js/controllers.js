@@ -1,7 +1,7 @@
-angular.module('starter.controllers', ['urlConstant'])
+angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
 
 // .controller('DashCtrl', function($scope) {})
-.controller('MapCtrl', function($scope, $http, uiGmapGoogleMapApi, $cordovaGeolocation) {
+.controller('MapCtrl', function($scope, $http, $rootScope, apiUrl, uiGmapGoogleMapApi, $cordovaGeolocation) {
 
   var hikeMapStyle = [
     {
@@ -53,18 +53,17 @@ angular.module('starter.controllers', ['urlConstant'])
     }
   ];
 
-  $scope.map = 
-  { 
+  $scope.map = { 
     center: { 
       latitude: 22.3700556,
       longitude: 114.1223784
     },
-    zoom: 11,
+    zoom: 10,
     options: {
-      scrollwheel: true,
+      // scrollwheel: true,
       styles: hikeMapStyle,
       panControl:false,
-      // zoomControl:true,
+      zoomControl:true,
       // zoomControlOptions: {
       //     style: google.maps.ZoomControlStyle.SMALL,
       //     position: google.maps.ControlPosition.LEFT_BOTTOM
@@ -77,8 +76,43 @@ angular.module('starter.controllers', ['urlConstant'])
     }
   };
 
-  
+  $scope.trailMarkers = [];
 
+  $scope.hihi = function() {
+    console.log("hihi");
+  }
+
+  var populateMarkers = function (markers, data) {
+    for (var i = 0; i < data.length; i++){
+      markers.push({
+        latitude: data[i].start_coordinates.latitude, 
+        longitude: data[i].start_coordinates.longitude,
+        id: data[i].id,
+        click: $scope.hihi,
+        icon: data[i].icon
+      })
+    };
+    console.log(markers);
+  }
+
+  $http.get(apiUrl+'trails').success(function(data, status, xhr){
+    populateMarkers($scope.trailMarkers,data.trails)
+  });
+
+  $rootScope.$on('searchResults', function (event, data) {
+    // $scope.trailMarkers = $scope.results;
+    // console.log($scope.trailMarkers);
+    $scope.trailMarkers = [];
+    populateMarkers($scope.trailMarkers,data.trails)
+  });
+
+  $scope.myLocation = {
+    id: 0,
+    coords: {},
+    icon: ""
+  }
+
+  // Cordova GeoLocation
   var posOptions = {timeout: 10000, enableHighAccuracy: false};
   $cordovaGeolocation
     .getCurrentPosition(posOptions)
@@ -93,7 +127,7 @@ angular.module('starter.controllers', ['urlConstant'])
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         },
-        icon: "http://www.eightgables.com/interactive/location/xstar.png,qver=1.0.40224.1820.pagespeed.ic.R-WLcTtD1J.png"
+        icon: "http://www.atitd.org/wiki/tale5/images/markers/markerOr.png"
       };
     }, function(err) {
       // error
@@ -104,14 +138,6 @@ angular.module('starter.controllers', ['urlConstant'])
   //   timeout : 3000,
   //   enableHighAccuracy: false // may cause errors if true
   // };
-
-  $scope.myLocation = {
-    id: 0,
-    coords: {
-      latitude: 0,
-      longitude: 0
-    }
-  };
   
   // var watch = $cordovaGeolocation.watchPosition(watchOptions);
   // watch.then(
@@ -128,17 +154,6 @@ angular.module('starter.controllers', ['urlConstant'])
   //     }
   //     console.log($scope.mycoords);
   // });
-
-  $scope.mylocation = {
-    id: 0,
-    coords: {
-      latitude: 40.1451,
-      longitude: -99.6680
-    }
-  };
-
-  
-
   // watch.clearWatch();
   // OR
   // $cordovaGeolocation.clearWatch(watch)
@@ -150,7 +165,7 @@ angular.module('starter.controllers', ['urlConstant'])
 
 })
 
-.controller('FilterCtrl', function($scope, $http, $timeout, apiUrl) {
+.controller('FilterCtrl', function($scope, $http, $rootScope, $timeout, apiUrl) {
   $scope.searchParameters = {};
   $scope.searchParameters.difficulty = 5;
   $scope.searchParameters.scenery = 5;
@@ -164,78 +179,53 @@ angular.module('starter.controllers', ['urlConstant'])
 
   var timeOut = 1000;
   var timeoutPromise;
-  $scope.$watch("searchParameters.difficulty", function() {
+  var getParams = function() {
     $scope.loading = true;
     $timeout.cancel(timeoutPromise);
     timeoutPromise = $timeout(function(){   //Set timeout
       submitParams();
-      $scope.loading = false;
     }, timeOut);
-  });
-  $scope.$watch("searchParameters.duration", function() {
-    $scope.loading = true;
-    $timeout.cancel(timeoutPromise);
-    timeoutPromise = $timeout(function(){   //Set timeout
-      submitParams();
-      $scope.loading = false;
-    }, timeOut);
-  });
-  $scope.$watch("searchParameters.distance", function() {
-    $scope.loading = true;
-    $timeout.cancel(timeoutPromise);
-    timeoutPromise = $timeout(function(){   //Set timeout
-      submitParams();
-      $scope.loading = false;
-    }, timeOut);
-  });
-  $scope.$watch("searchParameters.scenery", function() {
-    $scope.loading = true;
-    $timeout.cancel(timeoutPromise);
-    timeoutPromise = $timeout(function(){   //Set timeout
-      submitParams();
-      $scope.loading = false;
-    }, timeOut);
-  });
-  $scope.$watch("searchParameters.regions[0].checked", function() {
-    $scope.loading = true;
-    $timeout.cancel(timeoutPromise);
-    timeoutPromise = $timeout(function(){   //Set timeout
-      submitParams();
-      $scope.loading = false;
-    }, timeOut);
-  });
-  $scope.$watch("searchParameters.regions[1].checked", function() {
-    $scope.loading = true;
-    $timeout.cancel(timeoutPromise);
-    timeoutPromise = $timeout(function(){   //Set timeout
-      submitParams();
-      $scope.loading = false;
-    }, timeOut);
-  });
-  $scope.$watch("searchParameters.regions[2].checked", function() {
-    $scope.loading = true;
-    $timeout.cancel(timeoutPromise);
-    timeoutPromise = $timeout(function(){   //Set timeout
-      submitParams();
-      $scope.loading = false;
-    }, timeOut);
-  });
+  }
+  
 
-
+  // var checkResults = function() {
+  //   $scope.noResults = $scope.results.trails.length < 1 ? true : false;
+  // }
   // request URL
   // "http://www.google.com/search?key1=value1&key2=value2"
   // "http://www.google.com/search ? key1 = value1 & key2 = value2"
 
   // in routes
   // get "search" => "controller#action"
+
+  // var durationParams = 'duration='+$scope.searchParameters.duration;
+  // var difficultyParams = "&difficulty="+$scope.searchParameters.difficulty;
+  // var sceneryParams = "&scenery="+$scope.searchParameters.scenery;
+  // var distanceParams = "&distance="+$scope.searchParameters.distance;
+  // var hkParams = "&hk="+$scope.searchParameters.regions[0].checked;
+  // var kowloonParams = "&kln="+$scope.searchParameters.regions[1].checked;
+  // var newTerritoriesParams = "&nt="+$scope.searchParameters.regions[2].checked;
+
+
   var submitParams = function() {
-    $http.get(apiUrl+'search?duration='+$scope.searchParameters.duration+"&difficulty="+$scope.searchParameters.difficulty+"&scenery="+$scope.searchParameters.scenery+"&distance="+$scope.searchParameters.distance+"&hk="+$scope.searchParameters.regions[0].checked+"&kln="+$scope.searchParameters.regions[1].checked+"&nt="+$scope.searchParameters.regions[2].checked).success(function(data, status, xhr){
+    var url = apiUrl + "search?" +
+      "duration="+$scope.searchParameters.duration +
+      "&difficulty="+$scope.searchParameters.difficulty +
+      "&scenery="+$scope.searchParameters.scenery +
+      "&distance="+$scope.searchParameters.distance +
+      "&hk="+$scope.searchParameters.regions[0].checked +
+      "&kln="+$scope.searchParameters.regions[1].checked +
+      "&nt="+$scope.searchParameters.regions[2].checked;
+
+    $http.get(url).success(function(data, status, xhr){
         $scope.results = data;
-        console.log($scope.searchParameters.regions.checked)
-        console.log($scope.results);
+        $scope.loading = false;
+        console.log('data as sent by FilterCtrl', $scope.results);
+        $rootScope.$emit('searchResults', $scope.results);
+        // console.log($scope.searchParameters.regions.checked)
+        $scope.noResults = $scope.results.trails.length < 1 ? true : false;
     })
   }
-
 
   
   // in rails controller
@@ -265,13 +255,35 @@ angular.module('starter.controllers', ['urlConstant'])
     return stars;
   }
 
+  $scope.$watch("searchParameters.difficulty", function() {
+    getParams();
+  });
+  $scope.$watch("searchParameters.duration", function() {
+    getParams();
+  });
+  $scope.$watch("searchParameters.distance", function() {
+    getParams();
+  });
+  $scope.$watch("searchParameters.scenery", function() {
+    getParams();
+  });
+  $scope.$watch("searchParameters.regions[0].checked", function() {
+    getParams();
+  });
+  $scope.$watch("searchParameters.regions[1].checked", function() {
+    getParams();
+  });
+  $scope.$watch("searchParameters.regions[2].checked", function() {
+    getParams();
+  });
+
 })
 
 .controller('InfoCtrl', function($scope, $http, $stateParams, apiUrl) {
 
   $http.get(apiUrl+'trails/'+$stateParams.id).success(function(data, status, xhr){
     $scope.trail = data;
-    console.log($scope.trail)
+    // console.log($scope.trail)
   })
 
   $scope.makeStars = function(factor) {
@@ -295,11 +307,11 @@ angular.module('starter.controllers', ['urlConstant'])
 })
 
 .controller('FloraCtrl', function($scope, $http, $stateParams, $ionicModal, apiUrl) {
-
-  $http.get(apiUrl+'trails/'+$stateParams.id+'/flora').success(function(data, status, xhr){
-  // $http.get('http://localhost:3000/flora').success(function(data, status, xhr){
-      $scope.plants = data;
+  
+  $http.get(apiUrl+'trails/'+$stateParams.id).success(function(data, status, xhr){
+      $scope.plants = data.plants;
       console.log($scope.plants);
+      $scope.noPlants = $scope.plants.length < 1 ? true : false;
   })
 
   $ionicModal.fromTemplateUrl('plant-modal.html', {
@@ -340,12 +352,13 @@ angular.module('starter.controllers', ['urlConstant'])
 })
 
 .controller('FaunaCtrl', function($scope, $http, $stateParams, $ionicModal, apiUrl) {
-  
-  $http.get(apiUrl+"trails/"+$stateParams.id+'/fauna').success(function(data, status, xhr){
-  // $http.get('http://localhost:3000/fauna').success(function(data, status, xhr){
-      $scope.birds = data;
+
+  $http.get(apiUrl+"trails/"+$stateParams.id).success(function(data, status, xhr){
+      $scope.birds = data.birds;
       console.log($scope.birds);
+      $scope.noBirds = $scope.birds.length < 1 ? true : false;
   })
+
 
   $ionicModal.fromTemplateUrl('bird-modal.html', {
     scope: $scope,
@@ -391,28 +404,3 @@ angular.module('starter.controllers', ['urlConstant'])
 
     });
 });
-
-// .controller('ChatsCtrl', function($scope, Chats) {
-//   $scope.chats = Chats.all();
-//   $scope.remove = function(chat) {
-//     Chats.remove(chat);
-//   }
-// })
-
-// .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-//   $scope.chat = Chats.get($stateParams.chatId);
-// })
-
-// .controller('FriendsCtrl', function($scope, Friends) {
-//   $scope.friends = Friends.all();
-// })
-
-// .controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-//   $scope.friend = Friends.get($stateParams.friendId);
-// })
-
-// .controller('AccountCtrl', function($scope) {
-//   $scope.settings = {
-//     enableFriends: true
-//   };
-// });

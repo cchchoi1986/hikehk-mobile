@@ -14,36 +14,39 @@
             <ion-checkbox class="col col-30" ng-repeat="region in searchParameters.regions" ng-model="region.checked" ng-checked="region.checked">{{ region.text}}</ion-checkbox>
           </div>
         </div>
-        <div class="range row">
-          <div class="">
-            <div class="slider-title">Distance:</div>
-            <div class="slider-quant">{{searchParameters.distance}} km</div>
-          </div>
-          <!-- <i class="icon ion-android-walk low"></i> -->
-          <input class="col" type="range" name="searchParameters.distance" min="0" max="24" value="searchParameters.distance" step="1" ng-model="searchParameters.distance">
-          <i class="icon ion-android-walk high"></i>
-        </div>
-        <div class="range row">
+        <div class="range">
           <div class="">
             <div class="slider-title">Duration:</div>
-            <div>{{searchParameters.duration}} hours</div>
+            <div class="slider-quant">{{searchParameters.duration}} hours</div>
           </div>
           <input type="range" name="searchParameters.duration" min="0" max="10" value="searchParameters.duration" step="1" ng-model="searchParameters.duration">
           <i class="icon ion-ios-stopwatch-outline high"></i>
         </div>
+        <div class="range">
+          <div class="">
+            <div class="slider-title">Distance:</div>
+            <div class="slider-quant">{{searchParameters.distance}} km</div>
+          </div>
+          <input type="range" name="searchParameters.distance" min="0" max="24" value="searchParameters.distance" step="1" ng-model="searchParameters.distance">
+          <i class="icon ion-android-walk high"></i>
+        </div>
+        
       </div>
     </ion-list>
 
-    <div class="black" ng-show="loading">
-      <img class="load-image" src="http://media.giphy.com/media/PlKxnDT9vyYFy/giphy.gif">
+    <div class="loading-background" ng-show="loading">
+      <img class="load-image" src="http://www.mountainhighhikers.org/j282782.gif">
     </div>
 
     <div ng-show="!loading" class="list results-list">
-        <a ng-repeat="result in results.trails" class="item item-thumbnail-left" href="#/tab/info/{{result.id}}">
+      <div ng-if="noResults" class="no-results">No Trails Found, Please Try Again
+      </div>
+      <div ng-if="!noResults">
+        <a ng-click="selectTrail()" ng-repeat="result in results.trails" class="item item-thumbnail-left" href="#/tab/info/{{result.id}}">
           <img src="http://www.oasistrek.com/{{result.photo_urls[0]}}">
           <h2>
             {{ result.name }}
-            <p>{{ result.district }}</p>
+            <p>{{ result.region.district }}</p>
           </h2>
           <!-- <p>{{ result.district }}</p> -->
           <div class="row">
@@ -55,6 +58,7 @@
             </div>
           </div>
         </a>
+      </div>
     </div>
 
   </ion-content>
