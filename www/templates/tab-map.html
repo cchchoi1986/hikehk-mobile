@@ -8,15 +8,13 @@
 
         <ui-gmap-marker 
             coords="myLocation.coords" 
-            options="myLocation.options" 
-            events="myLocation.events" 
             idkey="myLocation.id"
             icon="myLocation.icon">
         </ui-gmap-marker>
 
         <ui-gmap-markers
           models  = 'trailMarkers'
-          event  =  "hihi()"
+          click  =  "click"
           coords  = "'self'"
           icon    = "'icon'">
         </ui-gmap-markers>

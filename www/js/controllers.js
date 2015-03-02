@@ -78,12 +78,17 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
 
   $scope.trailMarkers = [];
 
+  $scope.hihi = function() {
+    console.log("hihi");
+  }
+
   var populateMarkers = function (markers, data) {
     for (var i = 0; i < data.length; i++){
       markers.push({
         latitude: data[i].start_coordinates.latitude, 
         longitude: data[i].start_coordinates.longitude,
         id: data[i].id,
+        click: $scope.hihi,
         icon: data[i].icon
       })
     };
@@ -94,15 +99,17 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
     populateMarkers($scope.trailMarkers,data.trails)
   });
 
-  $rootScope.$on('searchResults', function (param1, param2) {
+  $rootScope.$on('searchResults', function (event, data) {
     // $scope.trailMarkers = $scope.results;
     // console.log($scope.trailMarkers);
     $scope.trailMarkers = [];
-    populateMarkers($scope.trailMarkers,param2.trails)
+    populateMarkers($scope.trailMarkers,data.trails)
   });
 
-  $scope.hihi = function() {
-    console.log("hihi");
+  $scope.myLocation = {
+    id: 0,
+    coords: {},
+    icon: ""
   }
 
   // Cordova GeoLocation
@@ -181,28 +188,42 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
   }
   
 
-  var checkResults = function() {
-    if ($scope.results.trails.length < 1) {
-      $scope.noResults = true;
-    }
-    else {
-      $scope.noResults = false;
-    }
-  }
+  // var checkResults = function() {
+  //   $scope.noResults = $scope.results.trails.length < 1 ? true : false;
+  // }
   // request URL
   // "http://www.google.com/search?key1=value1&key2=value2"
   // "http://www.google.com/search ? key1 = value1 & key2 = value2"
 
   // in routes
   // get "search" => "controller#action"
+
+  // var durationParams = 'duration='+$scope.searchParameters.duration;
+  // var difficultyParams = "&difficulty="+$scope.searchParameters.difficulty;
+  // var sceneryParams = "&scenery="+$scope.searchParameters.scenery;
+  // var distanceParams = "&distance="+$scope.searchParameters.distance;
+  // var hkParams = "&hk="+$scope.searchParameters.regions[0].checked;
+  // var kowloonParams = "&kln="+$scope.searchParameters.regions[1].checked;
+  // var newTerritoriesParams = "&nt="+$scope.searchParameters.regions[2].checked;
+
+
   var submitParams = function() {
-    $http.get(apiUrl+'search?duration='+$scope.searchParameters.duration+"&difficulty="+$scope.searchParameters.difficulty+"&scenery="+$scope.searchParameters.scenery+"&distance="+$scope.searchParameters.distance+"&hk="+$scope.searchParameters.regions[0].checked+"&kln="+$scope.searchParameters.regions[1].checked+"&nt="+$scope.searchParameters.regions[2].checked).success(function(data, status, xhr){
+    var url = apiUrl + "search?" +
+      "duration="+$scope.searchParameters.duration +
+      "&difficulty="+$scope.searchParameters.difficulty +
+      "&scenery="+$scope.searchParameters.scenery +
+      "&distance="+$scope.searchParameters.distance +
+      "&hk="+$scope.searchParameters.regions[0].checked +
+      "&kln="+$scope.searchParameters.regions[1].checked +
+      "&nt="+$scope.searchParameters.regions[2].checked;
+
+    $http.get(url).success(function(data, status, xhr){
         $scope.results = data;
         $scope.loading = false;
         console.log('data as sent by FilterCtrl', $scope.results);
         $rootScope.$emit('searchResults', $scope.results);
         // console.log($scope.searchParameters.regions.checked)
-        checkResults();
+        $scope.noResults = $scope.results.trails.length < 1 ? true : false;
     })
   }
 
@@ -286,20 +307,11 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
 })
 
 .controller('FloraCtrl', function($scope, $http, $stateParams, $ionicModal, apiUrl) {
-
-  var checkPlants = function() {
-    if ($scope.plants.length <= 0) {
-      $scope.noPlants = true;
-    }
-    else {
-      $scope.noPlants = false;
-    }
-  }
-
+  
   $http.get(apiUrl+'trails/'+$stateParams.id).success(function(data, status, xhr){
       $scope.plants = data.plants;
       console.log($scope.plants);
-      checkPlants();
+      $scope.noPlants = $scope.plants.length < 1 ? true : false;
   })
 
   $ionicModal.fromTemplateUrl('plant-modal.html', {
@@ -340,20 +352,11 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
 })
 
 .controller('FaunaCtrl', function($scope, $http, $stateParams, $ionicModal, apiUrl) {
-  
-  var checkBirds = function() {
-    if ($scope.birds.length <= 0) {
-      $scope.noBirds = true;
-    }
-    else {
-      $scope.noBirds = false;
-    }
-  }
 
   $http.get(apiUrl+"trails/"+$stateParams.id).success(function(data, status, xhr){
       $scope.birds = data.birds;
       console.log($scope.birds);
-      checkBirds();
+      $scope.noBirds = $scope.birds.length < 1 ? true : false;
   })
 
 
