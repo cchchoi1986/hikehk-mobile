@@ -279,11 +279,19 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
 
 })
 
-.controller('InfoCtrl', function($scope, $http, $stateParams, apiUrl) {
+.controller('InfoCtrl', function($scope, $http, $stateParams, apiUrl, WeatherServices) {
+
+  var getWeather = function(lat, lon){
+    console.log("weather gets called");
+    WeatherServices.returnWeather(lat, lon).success(function(data){
+      $scope.weatherInfo = WeatherServices.processData(data)
+    });
+  }
 
   $http.get(apiUrl+'trails/'+$stateParams.id).success(function(data, status, xhr){
     $scope.trail = data;
-    // console.log($scope.trail)
+    console.log("scope trail", $scope.trail);
+    getWeather($scope.trail.start_coordinates.latitude, $scope.trail.start_coordinates.longitude);
   })
 
   $scope.makeStars = function(factor) {
@@ -303,6 +311,7 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
     // console.log(stars);
     return stars;
   }
+
 
 })
 

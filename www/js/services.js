@@ -1,5 +1,29 @@
 angular.module('starter.services', [])
 
+.factory('WeatherServices', ['$http', function($http){
+
+  var weather = {};
+  weather.returnWeather = function(lat, lon){
+    var url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + ".json";
+    console.log('weather url', url);
+    return $http.get(url);
+  };
+
+  weather.processData = function(data){
+    var info = {
+      climate: data.weather[0].main,
+      description: data.weather[0].description,
+      temp: data.main.temp,
+      tempMax: data.main.temp_max,
+      tempMin: data.main.temp_min,
+      location: data.name
+    };
+    return info;
+  }
+
+  return weather;
+}])
+
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
