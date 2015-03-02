@@ -1,5 +1,5 @@
 <ion-view view-title="Trail">
-  <ion-content>
+  <ion-content class="trail-cards">
   
     <div class="list card">
 
@@ -10,7 +10,7 @@
       </div>
 
       <div class="item">
-        <div class="info-region">Region</div>
+        <div class="info-region">{{ trail.district }}</div>
         <div class="row info-title">{{ trail.name }}</div>
         <ul ng-class="{'truncate-description' : !full}" class="description">
           <li class="desc-line" ng-repeat="description in trail.description">"{{ description }}"</li>

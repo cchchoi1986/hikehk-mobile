@@ -1,5 +1,5 @@
 .filter-list {
-  border: 2px solid #363636;
+  /*border: 2px solid #363636;*/
   background: #363636;
   color: #e0efef;
   opacity: 0.8;
@@ -33,6 +33,16 @@
 .filter-region {
   text-align: center;
   font-size: 14px;
+}
+
+.range {
+  height: 9vh;
+  /*border-top: 1px solid #e0efef;*/
+  /*padding: 2px;*/
+}
+
+.testslide {
+  color: red;
 }
 
 .regionlist {
@@ -74,9 +84,26 @@ div.regionlist.row > label {
   color: #e0efef;
 }
 
-.results-list {
+.slider-quant {
+  color: #e0efef;
+  text-align: center;
+  font-size: 14px;
+  background: #363636;
+  color: #e0efef;
+}
+
+.trail-cards {
+  background: #e0efef;
+}
+
+.list.card {
+  background: #e0efef;
+}
+
+.list.results-list {
   overflow: scroll;
   height: 55vh;
+  background: #e0efef
 }
 
 .results-list a {
@@ -85,7 +112,8 @@ div.regionlist.row > label {
 }
 
 .icon.high {
-  font-size: 35px;
+  font-size: 32px;
+  margin: 0 0 0 -5px;
 }
 
 .resultslink {
@@ -102,16 +130,24 @@ div.regionlist.row > label {
   z-index: 1000;
 }
 
-.black {
-  background: black;
+.loading-background {
+  background: #e0efef;
   height: 55vh;
   width: 100%;
 }
 
 .load-image {
-  height: 25vh;
-  width: 80vw;
-  margin: 15vh 0 0 10vw;
+  height: 15vh;
+  width: 25vw;
+  margin: 20vh 0 0 35vw;
+}
+
+.no-results {
+  padding: 20vh 10vw;
+  text-align: center;
+  font-size: 25px;
+  line-height: 140%;
+  background: #e0efef;
 }
 
 .trail-imagebox {
@@ -119,7 +155,7 @@ div.regionlist.row > label {
 }
 
 .trail-image {
-  height: 25%;
+  height: 28vh;
   width: 33%;
   display: inline-block;
   margin: 0 -4px 0 0;
@@ -174,6 +210,27 @@ div > a {
 
 .qualrating {
   font-size: 14px;
+}
+
+.f-items-list {
+  background: #e0efef;
+  height: 100vh;
+}
+
+.f-modal {
+  background: #e0efef;
+}
+
+.f-modal-header {
+  background: #e0efef;
+}
+
+.f-modal-content {
+  background: #e0efef;
+}
+
+.f-modal-content .item {
+  /*background: #e0efef;*/
 }
 
 h2 {

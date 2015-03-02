@@ -1,15 +1,18 @@
 <ion-view view-title="Regional Flora">
   <ion-content>
-    <div class="blockimg-wrap">
-      <img  ng-click="openModal(plant)" class="blockimg" ng-repeat="plant in plants.plants" src="http://herbarium.gov.hk/{{ plant.photo_urls[0] }}">
-      <!-- <div ng-repeat="plant in plants.plants">{{ plant.common_name }}</div> -->
+    <div class="f-items-list">
+      <div ng-show="noPlants" class="no-results">No Flora identified in this region</div>
+      <div ng-show="!noPlants" class="blockimg-wrap">
+        <img  ng-click="openModal(plant)" class="blockimg" ng-repeat="plant in plants" src="http://herbarium.gov.hk/{{ plant.photo_urls[0] }}">
+        <!-- <div ng-repeat="plant in plants.plants">{{ plant.common_name }}</div> -->
+      </div>
     </div>
     <script id="plant-modal.html" type="text/ng-template">
-      <ion-modal-view>
-        <ion-header-bar>
+      <ion-modal-view class="f-modal">
+        <ion-header-bar class="f-modal-header">
           <h1 class="title">{{ selectedPlant.common_name }}</h1>
         </ion-header-bar>
-        <ion-content scroll="false">
+        <ion-content scroll="false" class="f-modal-content">
           <ion-slide-box on-slide-changed="slideHasChanged($index)">
             <ion-slide ng-repeat="photo in selectedPlant.photo_urls">
               <img class="sliderbox-image" src="http://herbarium.gov.hk/{{ photo }}">
