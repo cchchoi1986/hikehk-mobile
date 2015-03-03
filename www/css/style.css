@@ -1,8 +1,8 @@
-.filter-list {
-  /*border: 2px solid #363636;*/
+ /* tabs */
+
+.bar-custom-dark {
   background: #363636;
   color: #e0efef;
-  opacity: 0.8;
 }
 
 .reset-icon {
@@ -26,6 +26,23 @@
   color: #e0efef;
 }
 
+.tab-title {
+  font-size: 14px;
+}
+
+/* map tab */
+
+.reset-icon {
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+  font-size: 30px;
+}
+
+.my-location {
+  z-index: ;
+}
+
 .map-wrap {
   /*background: #363636;*/
   padding: 0;
@@ -37,8 +54,15 @@
   height: 92vh;
 }
 
-.tab-title {
-  font-size: 14px;
+ /* filter tab */
+
+.filter-list {
+  /*border: 2px solid #363636;*/
+  /*background: #363636;
+  color: #e0efef;*/
+  background: #e0efef;
+  color: #363636;
+  /*opacity: 0.8;*/
 }
 
 .filter-region {
@@ -50,10 +74,6 @@
   height: 9vh;
   /*border-top: 1px solid #e0efef;*/
   /*padding: 2px;*/
-}
-
-.testslide {
-  color: red;
 }
 
 .regionlist {
@@ -70,16 +90,20 @@
 }
 
 div.regionlist.row > label {
-  background: #363636;
-  color: #e0efef;
+  /*background: #363636;*/
+  /*color: #e0efef;*/
+  background: #e0efef;
+  color: #363636;
 }
 
 .filter-list > div.item {
   padding: 0;
   margin: 0;
   border: 0;
-  background: #363636;
-  color: #e0efef;
+  /*background: #363636;
+  color: #e0efef;*/
+  background: #e0efef;
+  color: #363636;
 }
 
 .ng-pristine.ng-untouched.ng-valid {
@@ -91,17 +115,74 @@ div.regionlist.row > label {
   color: #e0efef;
   text-align: center;
   font-size: 14px;
-  background: #363636;
-  color: #e0efef;
+  /*color: #e0efef;*/
+  background: #e0efef;
+  color: #363636;
 }
 
 .slider-quant {
   color: #e0efef;
   text-align: center;
   font-size: 14px;
-  background: #363636;
+  /*background: #363636;
+  color: #e0efef;*/
+  background: #e0efef;
+  color: #363636;
+}
+
+.icon.high {
+  font-size: 32px;
+  margin: 0 0 0 -5px;
+}
+
+.list.results-list {
+  overflow: scroll;
+  height: 60vh;
+  /*background: #e0efef;*/
   color: #e0efef;
 }
+
+.list.results-list > div > a >h2 {
+  color: white;
+}
+
+.list.results-list > div > a > h2 > p {
+  color: #e0efef;
+}
+
+.results-list a {
+  /*color: #363636;
+  background: #e0efef;*/
+  background: #363636;
+  opacity: 0.9;
+  color: #e0efef;
+}
+
+.loading-background {
+  /*background: #e0efef;*/
+  background: #363636;
+  opacity: 0.8;
+  height: 60vh;
+  width: 100%;
+}
+
+.load-image {
+  height: 18vh;
+  width: 30vw;
+  margin: 20vh 0 0 35vw;
+}
+
+.no-results {
+  padding: 20vh 10vw;
+  text-align: center;
+  font-size: 25px;
+  line-height: 140%;
+  /*background: #e0efef;*/
+  background: #e0efef;
+  color: #363636;
+}
+
+/* info tab */
 
 .trail-cards {
   background: #e0efef;
@@ -111,26 +192,16 @@ div.regionlist.row > label {
   background: #e0efef;
 }
 
-.list.results-list {
-  overflow: scroll;
-  height: 55vh;
-  background: #e0efef
-}
-
-.results-list a {
-  color: #363636;
-  background: #e0efef;
-}
-
-.icon.high {
-  font-size: 32px;
-  margin: 0 0 0 -5px;
-}
-
 .resultslink {
   text-decoration: none;
   margin: 0;
   padding: 0;
+  color: #e0efef;
+}
+
+.link-coords {
+  position: absolute;
+  right : 25px;
 }
 
 .resultslink.button.button-full {
@@ -139,26 +210,6 @@ div.regionlist.row > label {
   position: relative;
   top: 0;
   z-index: 1000;
-}
-
-.loading-background {
-  background: #e0efef;
-  height: 55vh;
-  width: 100%;
-}
-
-.load-image {
-  height: 15vh;
-  width: 25vw;
-  margin: 20vh 0 0 35vw;
-}
-
-.no-results {
-  padding: 20vh 10vw;
-  text-align: center;
-  font-size: 25px;
-  line-height: 140%;
-  background: #e0efef;
 }
 
 .trail-imagebox {

@@ -18,6 +18,13 @@
           click  =  "click"
           coords  = "'self'"
           icon    = "'icon'">
+          <ui-gmap-windows 
+            show="show"
+            event="clickEventsObject">
+            <div ng-non-bindable>
+              <h4>{{title}}</h4>
+            </div>
+          </ui-gmap-windows>
         </ui-gmap-markers>
 
         <!-- <ui-gmap-marker 
