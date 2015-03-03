@@ -10,7 +10,13 @@
       </div>
 
       <div class="item">
-        <div class="info-region">{{ trail.district }}</div>
+        <div class="row">
+          <div class="col info-region">{{ trail.district }}
+          </div>
+          <div class="col link-coords">
+            <a ng-click="selectTrail()" href="/#/tab/map">See Map</a>
+          </div>
+        </div>
         <div class="row info-title">{{ trail.name }}</div>
         <ul ng-class="{'truncate-description' : !full}" class="description">
           <li class="desc-line" ng-repeat="description in trail.description">"{{ description }}"</li>
@@ -63,13 +69,13 @@
       </div>
 
       <div class="item">
-        <a href="#/tab/info/{{trail.id}}/flora">
+        <a ng-hide="noPlants" href="#/tab/info/{{trail.id}}/flora">
           <button class="item button button-full button-balanced">
             See Regional Flora:
           </button>
         </a>
 
-        <a href="#/tab/info/{{trail.id}}/fauna">
+        <a ng-hide="noBirds" href="#/tab/info/{{trail.id}}/fauna">
           <button class="item button button-full button-assertive">
             See Regional Fauna:
           </button>
