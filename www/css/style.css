@@ -1,8 +1,8 @@
-.filter-list {
-  /*border: 2px solid #363636;*/
+ /* tabs */
+
+.bar-custom-dark {
   background: #363636;
   color: #e0efef;
-  opacity: 0.8;
 }
 
 .reset-icon {
@@ -26,6 +26,23 @@
   color: #e0efef;
 }
 
+.tab-title {
+  font-size: 14px;
+}
+
+/* map tab */
+
+.reset-icon {
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+  font-size: 30px;
+}
+
+.my-location {
+  z-index: ;
+}
+
 .map-wrap {
   /*background: #363636;*/
   padding: 0;
@@ -35,10 +52,70 @@
   text-align: center;
   z-index: 20;
   height: 92vh;
+  /*height: 50vh;*/
 }
 
-.tab-title {
-  font-size: 14px;
+.intro-modal-content {
+  /*color: #363636;*/
+  color: #e0efef;
+  /*opacity: 0.8;*/
+}
+
+.intro-modal-background {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  background: #363636;
+}
+
+.intro-modal-image {
+  width: 100%;
+  height: 100vh;
+  opacity: 0.8;
+  background: #363636;
+}
+
+.intro-modal-overlay {
+  position: absolute;
+  top: 0;
+}
+
+.intro-modal-little-title {
+  text-align: center;
+  padding: 10vh 0 0 0;
+}
+
+.intro-modal-title {
+  text-align: center;
+  /*padding: 10vh 0 0 0;*/
+}
+
+.intro-modal-message {
+  padding: 15vh 10vw;
+  font-size: 18px;
+  line-height: 180%;
+  text-align: center;
+}
+
+.intro-modal-button {
+  text-decoration: none;
+}
+
+.intro-modal-button > button.button.button-full {
+  /*color: #363636;*/
+  color: #e0efef;
+}
+
+ /* filter tab */
+
+.filter-list {
+  /*border: 2px solid #363636;*/
+  /*background: #363636;
+  color: #e0efef;*/
+  background: #e0efef;
+  color: #363636;
+  /*opacity: 0.8;*/
 }
 
 .filter-region {
@@ -50,10 +127,6 @@
   height: 9vh;
   /*border-top: 1px solid #e0efef;*/
   /*padding: 2px;*/
-}
-
-.testslide {
-  color: red;
 }
 
 .regionlist {
@@ -70,16 +143,20 @@
 }
 
 div.regionlist.row > label {
-  background: #363636;
-  color: #e0efef;
+  /*background: #363636;*/
+  /*color: #e0efef;*/
+  background: #e0efef;
+  color: #363636;
 }
 
 .filter-list > div.item {
   padding: 0;
   margin: 0;
   border: 0;
-  background: #363636;
-  color: #e0efef;
+  /*background: #363636;
+  color: #e0efef;*/
+  background: #e0efef;
+  color: #363636;
 }
 
 .ng-pristine.ng-untouched.ng-valid {
@@ -91,35 +168,19 @@ div.regionlist.row > label {
   color: #e0efef;
   text-align: center;
   font-size: 14px;
-  background: #363636;
-  color: #e0efef;
+  /*color: #e0efef;*/
+  background: #e0efef;
+  color: #363636;
 }
 
 .slider-quant {
   color: #e0efef;
   text-align: center;
   font-size: 14px;
-  background: #363636;
-  color: #e0efef;
-}
-
-.trail-cards {
+  /*background: #363636;
+  color: #e0efef;*/
   background: #e0efef;
-}
-
-.list.card {
-  background: #e0efef;
-}
-
-.list.results-list {
-  overflow: scroll;
-  height: 55vh;
-  background: #e0efef
-}
-
-.results-list a {
   color: #363636;
-  background: #e0efef;
 }
 
 .icon.high {
@@ -127,10 +188,81 @@ div.regionlist.row > label {
   margin: 0 0 0 -5px;
 }
 
+.list.results-list {
+  overflow: scroll;
+  height: 60vh;
+  /*background: #e0efef;*/
+  color: #e0efef;
+}
+
+.list.results-list > div > a >h2 {
+  color: white;
+}
+
+.list.results-list > div > a > h2 > p {
+  color: #e0efef;
+}
+
+.results-list a {
+  /*color: #363636;
+  background: #e0efef;*/
+  background: #363636;
+  opacity: 0.9;
+  color: #e0efef;
+}
+
+.loading-background {
+  /*background: #e0efef;*/
+  background: #363636;
+  opacity: 0.8;
+  height: 60vh;
+  width: 100%;
+}
+
+.load-image {
+  height: 18vh;
+  width: 30vw;
+  margin: 20vh 0 0 35vw;
+}
+
+.no-results {
+  padding: 20vh 10vw 30vh 10vw;
+  text-align: center;
+  font-size: 25px;
+  line-height: 180%;
+  /*background: #e0efef;
+  color: #363636;*/
+  background: #363636;
+  opacity: 0.9;
+  color: #e0efef;
+}
+
+/* info tab */
+
+.trail-cards {
+  background: #e0efef;
+}
+
+.map-link {
+  background: #363636;
+  padding: 5px;
+  color: #e0efef;
+}
+
+.list.card {
+  background: #e0efef;
+}
+
 .resultslink {
   text-decoration: none;
   margin: 0;
   padding: 0;
+  color: #e0efef;
+}
+
+.link-coords {
+  position: absolute;
+  right : 25px;
 }
 
 .resultslink.button.button-full {
@@ -139,26 +271,6 @@ div.regionlist.row > label {
   position: relative;
   top: 0;
   z-index: 1000;
-}
-
-.loading-background {
-  background: #e0efef;
-  height: 55vh;
-  width: 100%;
-}
-
-.load-image {
-  height: 15vh;
-  width: 25vw;
-  margin: 20vh 0 0 35vw;
-}
-
-.no-results {
-  padding: 20vh 10vw;
-  text-align: center;
-  font-size: 25px;
-  line-height: 140%;
-  background: #e0efef;
 }
 
 .trail-imagebox {

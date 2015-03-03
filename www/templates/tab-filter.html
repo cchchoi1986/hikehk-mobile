@@ -8,8 +8,8 @@
     <ion-list ng-hide="hidden">
       <div class="filter-list">
         <div class="filter-region">
-          <i class="icon ion-map"></i>
-          Select Region(s): 
+          <!-- <i class="icon ion-map"></i>
+          Select Region(s):  -->
           <div class="regionlist row">
             <ion-checkbox class="col col-30" ng-repeat="region in searchParameters.regions" ng-model="region.checked" ng-checked="region.checked">{{ region.text}}</ion-checkbox>
           </div>
@@ -34,7 +34,7 @@
       </div>
     </ion-list>
 
-    <div class="loading-background" ng-show="loading">
+    <div scroll="false" class="loading-background" ng-show="loading">
       <img class="load-image" src="http://www.mountainhighhikers.org/j282782.gif">
     </div>
 

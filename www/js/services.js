@@ -13,9 +13,9 @@ angular.module('starter.services', [])
     var info = {
       climate: data.weather[0].main,
       description: data.weather[0].description,
-      temp: data.main.temp,
-      tempMax: data.main.temp_max,
-      tempMin: data.main.temp_min,
+      temp: Math.floor(data.main.temp-273.5),
+      tempMax: Math.floor(data.main.temp_max-273.5),
+      tempMin: Math.floor(data.main.temp_min-273.5),
       location: data.name
     };
     return info;
