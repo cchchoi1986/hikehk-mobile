@@ -1,7 +1,33 @@
 angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
 
 // .controller('DashCtrl', function($scope) {})
-.controller('MapCtrl', function($scope, $http, $rootScope, apiUrl, uiGmapGoogleMapApi, $cordovaGeolocation) {
+.controller('MapCtrl', function($scope, $http, $rootScope, $ionicModal, apiUrl, uiGmapGoogleMapApi, $cordovaGeolocation) {
+
+  $ionicModal.fromTemplateUrl('intro-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+    $scope.modal.show();
+  });
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
+  });
 
   var hikeMapStyle = [
     {
@@ -55,10 +81,13 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
 
   $scope.map = { 
     center: { 
-      latitude: 22.3700556,
-      longitude: 114.1223784
+      latitude: 22.337118,
+      longitude: 114.1453501
     },
     zoom: 10,
+    click: function() {
+          console.log("hihi");
+        },
     options: {
       // scrollwheel: true,
       styles: hikeMapStyle,
@@ -81,10 +110,14 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
   var populateMarkers = function (markers, data) {
     for (var i = 0; i < data.length; i++){
       markers.push({
+        title: data[i].name,
         latitude: data[i].start_coordinates.latitude, 
         longitude: data[i].start_coordinates.longitude,
         id: data[i].id,
-        icon: data[i].icon
+        icon: data[i].icon,
+        click: function() {
+          console.log("hihi");
+        }
       })
     };
     console.log(markers);
@@ -130,6 +163,14 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
     // $scope.trailMarkers = $scope.results;
     // console.log($scope.trailMarkers);
     $scope.trailMarkers = [];
+    $scope.polylines = [];
+    $scope.map = { 
+      center: { 
+        latitude: 22.337118,
+        longitude: 114.1453501
+      },
+      zoom: 10
+    }
     populateMarkers($scope.trailMarkers,data.trails)
   });
 
@@ -178,8 +219,9 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         },
-        icon: "http://www.eecis.udel.edu/~bohacek/orange_sel_marker.png"
         // icon: "http://garminbasecamp.wikispaces.com/file/view/ProgressMarker%2018x23.png/394362042/ProgressMarker%2018x23.png"
+        // icon: "http://www.eecis.udel.edu/~bohacek/orange_sel_marker.png"
+        icon: "http://d1cnag8e8eksul.cloudfront.net/media/com_hotspots/images/utils/person.png"
       };
     }, function(err) {
       // error

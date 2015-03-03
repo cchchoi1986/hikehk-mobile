@@ -52,6 +52,59 @@
   text-align: center;
   z-index: 20;
   height: 92vh;
+  /*height: 50vh;*/
+}
+
+.intro-modal-content {
+  /*color: #363636;*/
+  color: #e0efef;
+  /*opacity: 0.8;*/
+}
+
+.intro-modal-background {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  background: #363636;
+}
+
+.intro-modal-image {
+  width: 100%;
+  height: 100vh;
+  opacity: 0.8;
+  background: #363636;
+}
+
+.intro-modal-overlay {
+  position: absolute;
+  top: 0;
+}
+
+.intro-modal-little-title {
+  text-align: center;
+  padding: 10vh 0 0 0;
+}
+
+.intro-modal-title {
+  text-align: center;
+  /*padding: 10vh 0 0 0;*/
+}
+
+.intro-modal-message {
+  padding: 15vh 10vw;
+  font-size: 18px;
+  line-height: 180%;
+  text-align: center;
+}
+
+.intro-modal-button {
+  text-decoration: none;
+}
+
+.intro-modal-button > button.button.button-full {
+  /*color: #363636;*/
+  color: #e0efef;
 }
 
  /* filter tab */
@@ -173,19 +226,27 @@ div.regionlist.row > label {
 }
 
 .no-results {
-  padding: 20vh 10vw;
+  padding: 20vh 10vw 30vh 10vw;
   text-align: center;
   font-size: 25px;
-  line-height: 140%;
-  /*background: #e0efef;*/
-  background: #e0efef;
-  color: #363636;
+  line-height: 180%;
+  /*background: #e0efef;
+  color: #363636;*/
+  background: #363636;
+  opacity: 0.9;
+  color: #e0efef;
 }
 
 /* info tab */
 
 .trail-cards {
   background: #e0efef;
+}
+
+.map-link {
+  background: #363636;
+  padding: 5px;
+  color: #e0efef;
 }
 
 .list.card {
