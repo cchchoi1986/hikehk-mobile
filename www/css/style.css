@@ -5,6 +5,17 @@
   opacity: 0.8;
 }
 
+.reset-icon {
+  position: absolute;
+  top: 0;
+  z-index: 1000;
+  font-size: 30px;
+}
+
+.my-location {
+  z-index: ;
+}
+
 .bar-custom-dark {
   background: #363636;
   color: #e0efef;
@@ -23,7 +34,7 @@
 .angular-google-map-container { 
   text-align: center;
   z-index: 20;
-  height: 84vh;
+  height: 92vh;
 }
 
 .tab-title {

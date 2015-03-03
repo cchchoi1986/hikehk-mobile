@@ -78,17 +78,12 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
 
   $scope.trailMarkers = [];
 
-  $scope.hihi = function() {
-    console.log("hihi");
-  }
-
   var populateMarkers = function (markers, data) {
     for (var i = 0; i < data.length; i++){
       markers.push({
         latitude: data[i].start_coordinates.latitude, 
         longitude: data[i].start_coordinates.longitude,
         id: data[i].id,
-        click: $scope.hihi,
         icon: data[i].icon
       })
     };
@@ -99,11 +94,67 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
     populateMarkers($scope.trailMarkers,data.trails)
   });
 
+  var makeCoord = function(array) {
+    new_array = [];
+    for (var i =0; i < array.length; i++){
+      new_array.push({ latitude: array[i].split(',')[0], longitude: array[i].split(',')[1]});
+    }
+    return new_array;
+  }
+
+  $scope.polylines = [
+      {
+          id: 999,
+          // path: makeCoord(trail1),
+          path: "", 
+          stroke: {
+              color: 'red',
+              weight: 3
+          },
+          editable: false,
+          draggable: false,
+          geodesic: false,
+          visible: true,
+          icons: [{
+              icon: {
+                  // path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW
+              },
+              offset: '25px',
+              repeat: '50px'
+          }]
+      }
+  ];
+
+
   $rootScope.$on('searchResults', function (event, data) {
     // $scope.trailMarkers = $scope.results;
     // console.log($scope.trailMarkers);
     $scope.trailMarkers = [];
     populateMarkers($scope.trailMarkers,data.trails)
+  });
+
+  $rootScope.$on('selectTrail', function (event, data) {
+    // $scope.trailMarkers = $scope.results;
+    console.log("map ctrl here",data);
+    $scope.map = {}
+    $scope.polylines = [];
+    $scope.map = {
+      center: { 
+      latitude: data.start_coordinates.latitude,
+      longitude: data.start_coordinates.longitude
+      },
+      zoom: 12,
+    }
+    $scope.polylines = [
+      {
+        id: 999,
+        path: makeCoord(data.trail_coordinates),
+        stroke: {
+            color: 'red',
+            weight: 3
+        }
+      }
+    ]
   });
 
   $scope.myLocation = {
@@ -127,41 +178,11 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         },
-        icon: "http://www.atitd.org/wiki/tale5/images/markers/markerOr.png"
+        icon: "http://www.eecis.udel.edu/~bohacek/orange_sel_marker.png"
       };
     }, function(err) {
       // error
     });
-
-  // var watchOptions = {
-  //   frequency : 1000,
-  //   timeout : 3000,
-  //   enableHighAccuracy: false // may cause errors if true
-  // };
-  
-  // var watch = $cordovaGeolocation.watchPosition(watchOptions);
-  // watch.then(
-  //   null,
-  //   function(err) {
-  //     // error
-  //   },
-  //   function(position) {
-  //     var lat  = position.coords.latitude;
-  //     var long = position.coords.longitude;
-  //     $scope.mycoords = {
-  //       latitude: position.coords.latitude,
-  //       longitude: position.coords.longitude
-  //     }
-  //     console.log($scope.mycoords);
-  // });
-  // watch.clearWatch();
-  // OR
-  // $cordovaGeolocation.clearWatch(watch)
-    // .then(function(result) {
-    //   // success
-    //   }, function (error) {
-    //   // error
-    // });
 
 })
 
@@ -197,14 +218,6 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
 
   // in routes
   // get "search" => "controller#action"
-
-  // var durationParams = 'duration='+$scope.searchParameters.duration;
-  // var difficultyParams = "&difficulty="+$scope.searchParameters.difficulty;
-  // var sceneryParams = "&scenery="+$scope.searchParameters.scenery;
-  // var distanceParams = "&distance="+$scope.searchParameters.distance;
-  // var hkParams = "&hk="+$scope.searchParameters.regions[0].checked;
-  // var kowloonParams = "&kln="+$scope.searchParameters.regions[1].checked;
-  // var newTerritoriesParams = "&nt="+$scope.searchParameters.regions[2].checked;
 
 
   var submitParams = function() {
@@ -279,7 +292,7 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
 
 })
 
-.controller('InfoCtrl', function($scope, $http, $stateParams, apiUrl, WeatherServices) {
+.controller('InfoCtrl', function($scope, $http, $rootScope, $stateParams, apiUrl, WeatherServices) {
 
   var getWeather = function(lat, lon){
     console.log("weather gets called");
@@ -290,9 +303,12 @@ angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
 
   $http.get(apiUrl+'trails/'+$stateParams.id).success(function(data, status, xhr){
     $scope.trail = data;
-    console.log("scope trail", $scope.trail);
+    $scope.noPlants = $scope.trail.plants.length < 1 ? true : false;
+    $scope.noBirds = $scope.trail.birds.length < 1 ? true : false;
     getWeather($scope.trail.start_coordinates.latitude, $scope.trail.start_coordinates.longitude);
+    $rootScope.$emit('selectTrail', $scope.trail);
   })
+
 
   $scope.makeStars = function(factor) {
     range = 5;

@@ -6,7 +6,8 @@
         draggable="true" 
         options="map.options">
 
-        <ui-gmap-marker 
+        <ui-gmap-marker
+            class="my-location"
             coords="myLocation.coords" 
             idkey="myLocation.id"
             icon="myLocation.icon">
@@ -19,7 +20,6 @@
           icon    = "'icon'">
         </ui-gmap-markers>
 
-
         <!-- <ui-gmap-marker 
             coords="selectedTrail.coords" 
             options="selectedTrail.options" 
@@ -27,7 +27,7 @@
             idkey="selectedTrail.id"
             icon="selectedTrail.icon">
         </ui-gmap-marker> -->
-        <!-- <ui-gmap-polyline 
+        <ui-gmap-polyline 
           ng-repeat="p in polylines" 
           path="p.path" 
           stroke="p.stroke" 
@@ -37,10 +37,9 @@
           editable="p.editable" 
           draggable="p.draggable" 
           icons='p.icons'>
-        </ui-gmap-polyline> -->
+        </ui-gmap-polyline>
 
     </ui-gmap-google-map>
-
 
   </ion-content>
 </ion-view>
