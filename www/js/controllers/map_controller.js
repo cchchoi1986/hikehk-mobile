@@ -1,30 +1,6 @@
-controllerModule.controller('MapCtrl', function($scope, $http, $rootScope, $ionicModal, apiUrl, uiGmapGoogleMapApi, $cordovaGeolocation) {
+controllerModule.controller('MapCtrl', function($scope, $http, $rootScope, $timeout, $ionicModal, apiUrl, uiGmapGoogleMapApi, $cordovaGeolocation, SearchServices) {
 
-  $ionicModal.fromTemplateUrl('intro-modal.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.modal = modal;
-    // $scope.modal.show();
-  });
-  $scope.openModal = function() {
-    $scope.modal.show();
-  };
-  $scope.closeModal = function() {
-    $scope.modal.hide();
-  };
-  //Cleanup the modal when we're done with it!
-  $scope.$on('$destroy', function() {
-    $scope.modal.remove();
-  });
-  // Execute action on hide modal
-  $scope.$on('modal.hidden', function() {
-    // Execute action
-  });
-  // Execute action on remove modal
-  $scope.$on('modal.removed', function() {
-    // Execute action
-  });
+  console.log(SearchServices)
 
   var hikeMapStyle = [
     {
@@ -76,53 +52,69 @@ controllerModule.controller('MapCtrl', function($scope, $http, $rootScope, $ioni
     }
   ];
 
+  var all_trails = function() {
+    $http.get(apiUrl+"trails").success(function(data, status, xhr){
+      $scope.allTrails = data;
+    })
+  };
+
+  $scope.resetMap = function() {
+    $scope.map = {
+      center: {
+        latitude: 22.337118,
+        longitude: 114.1453501
+      },
+      zoom: 12
+    };
+    populateMarkers($scope.allTrails);
+    $rootScope.$emit('reset', data);
+  };
+
   $scope.map = { 
     center: { 
-      latitude: 22.337118,
-      longitude: 114.1453501
+      latitude: SearchServices.start_coords.latitude,
+      longitude: SearchServices.start_coords.longitude
     },
-    zoom: 10,
+    zoom: SearchServices.zoom,
     click: function() {
           console.log("hihi");
         },
     options: {
-      // scrollwheel: true,
       styles: hikeMapStyle,
       panControl:false,
       zoomControl:true,
-      // zoomControlOptions: {
-      //     style: google.maps.ZoomControlStyle.SMALL,
-      //     position: google.maps.ControlPosition.LEFT_BOTTOM
-      // },
       mapTypeControl:false,
       scaleControl:false,
       streetViewControl:false,
-      minZoom: 10,
+      minZoom: 9,
       maxZoom: 16
     }
   };
 
   $scope.trailMarkers = [];
 
-  var populateMarkers = function (markers, data) {
+  var populateMarkers = function (data) {
     for (var i = 0; i < data.length; i++){
-      markers.push({
+      $scope.trailMarkers.push({
         title: data[i].name,
         latitude: data[i].start_coordinates.latitude, 
         longitude: data[i].start_coordinates.longitude,
         id: data[i].id,
         icon: data[i].icon,
-        click: function() {
+        click: function(id) {
           console.log("hihi");
+          $rootScope.$emit("mapTrailClick", id.key)
+          var data = $http.get(apiUrl+'trails/'+id.key).success(function(data, status, xhr){
+            $scope.zoomTrail(data);
+          })
         }
       })
     };
-    console.log(markers);
   }
 
-  $http.get(apiUrl+'trails').success(function(data, status, xhr){
-    populateMarkers($scope.trailMarkers,data.trails)
-  });
+  // $http.get(apiUrl+'trails').success(function(data, status, xhr){
+  //   populateMarkers(data.trails)
+  // });
 
   var makeCoord = function(array) {
     new_array = [];
@@ -135,8 +127,7 @@ controllerModule.controller('MapCtrl', function($scope, $http, $rootScope, $ioni
   $scope.polylines = [
       {
           id: 999,
-          // path: makeCoord(trail1),
-          path: "", 
+          path: makeCoord(SearchServices.polyline), 
           stroke: {
               color: 'red',
               weight: 3
@@ -147,7 +138,6 @@ controllerModule.controller('MapCtrl', function($scope, $http, $rootScope, $ioni
           visible: true,
           icons: [{
               icon: {
-                  // path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW
               },
               offset: '25px',
               repeat: '50px'
@@ -156,52 +146,52 @@ controllerModule.controller('MapCtrl', function($scope, $http, $rootScope, $ioni
   ];
 
 
-  $rootScope.$on('searchResults', function (event, data) {
-    // $scope.trailMarkers = $scope.results;
-    // console.log($scope.trailMarkers);
-    $scope.trailMarkers = [];
-    $scope.polylines = [];
-    $scope.map = { 
-      center: { 
-        latitude: 22.337118,
-        longitude: 114.1453501
-      },
-      zoom: 10
-    }
-    populateMarkers($scope.trailMarkers,data.trails)
-  });
+  // $rootScope.$on('searchResults', function (event, data) {
+  //   // $scope.trailMarkers = $scope.results;
+  //   // console.log($scope.trailMarkers);
+  //   $scope.trailMarkers = [];
+  //   $scope.polylines = [];
+  //   $scope.map = { 
+  //     center: { 
+  //       latitude: 22.337118,
+  //       longitude: 114.1453501
+  //     },
+  //     zoom: 10
+  //   }
+  //   populateMarkers(data.trails)
+  // });
 
-  $rootScope.$on('selectTrail', function (event, data) {
-    // $scope.trailMarkers = $scope.results;
-    console.log("map ctrl here",data);
-    $scope.map = {}
-    $scope.polylines = [];
-    $scope.map = {
-      center: { 
-      latitude: data.start_coordinates.latitude,
-      longitude: data.start_coordinates.longitude
-      },
-      zoom: 12,
-    }
-    $scope.polylines = [
-      {
-        id: 999,
-        path: makeCoord(data.trail_coordinates),
-        stroke: {
-            color: 'red',
-            weight: 3
-        }
-      }
-    ]
-  });
+  // $rootScope.$on('selectTrail', function (event, data) {
+  //   // $scope.trailMarkers = $scope.results;
+  //   console.log("map ctrl here",data);
+  //   $scope.map = {}
+  //   $scope.polylines = [];
+  //   $scope.map = {
+  //     center: { 
+  //     latitude: data.start_coordinates.latitude,
+  //     longitude: data.start_coordinates.longitude
+  //     },
+  //     zoom: 12,
+  //   }
+  //   $scope.polylines = [
+  //     {
+  //       id: 999,
+  //       path: makeCoord(data.trail_coordinates),
+  //       stroke: {
+  //           color: 'red',
+  //           weight: 3
+  //       }
+  //     }
+  //   ]
+  // });
 
+  // Cordova GeoLocation
   $scope.myLocation = {
     id: 0,
     coords: {},
     icon: ""
   }
 
-  // Cordova GeoLocation
   var posOptions = {timeout: 10000, enableHighAccuracy: false};
   $cordovaGeolocation
     .getCurrentPosition(posOptions)
@@ -224,4 +214,13 @@ controllerModule.controller('MapCtrl', function($scope, $http, $rootScope, $ioni
       // error
     });
 
+  populateMarkers(SearchServices.searchResults)
+  console.log(SearchServices.searchResults)
+
+  // map refresh to counter modal rendering
+  uiGmapGoogleMapApi.then(function (maps) {
+      $timeout(function () {
+          $scope.showMap = true;
+      }, 100);
+  });
 })

@@ -14,7 +14,7 @@
           <div class="info-region">{{ trail.district }}
           </div>
           <div class="link-coords">
-            <a class="map-link" href="/#/tab/map">See Map <i class="icon ion-map"></i></a>
+            <a class="map-link" href="/#/tab/map">Map <i class="icon ion-map"></i></a>
           </div>
         </div>
         <div class="row info-title">{{ trail.name }}</div>
@@ -46,9 +46,10 @@
 
       <div class="item">
         <h2>Weather:</h2>
-        <div class="info-weather">{{ weatherInfo.tempMin}}-{{ weatherInfo.tempMax }} ˚C</div>
-        <div class="info-weather">{{ weatherInfo.climate }}, {{ weatherInfo.description}}</div>
-        <p class="info-weather-update">Updated {{weatherInfo.time}}</p>
+        <div class="info-weather">{{ weatherInfo.temp}}˚C</div>
+        <div class="info-weather">{{ weatherInfo.climate }}</div>
+        <div class="info-weather">Rain: {{ weatherInfo.precip}}mm</div>
+        <p class="info-weather-update">Updated {{weatherInfo.updated}}</p>
       </div>
 
       <div class="item">

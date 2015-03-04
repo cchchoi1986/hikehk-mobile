@@ -65,6 +65,17 @@
   margin: 0;
 }
 
+.reset-button {
+  /*margin:-100px 0 0 0;*/
+  position: absolute;
+  height: 8vh;
+  font-size: 38px;
+  color: brown;
+  z-index: 1000;
+  top: 2px;
+  left: 2px;
+}
+
 .angular-google-map-container { 
   text-align: center;
   max-width: none;

@@ -1,14 +1,6 @@
-controllerModule.controller('FilterCtrl', function($scope, $http, $rootScope, $timeout, apiUrl) {
-  $scope.searchParameters = {};
-  $scope.searchParameters.difficulty = 5;
-  $scope.searchParameters.scenery = 5;
-  $scope.searchParameters.distance = 24;
-  $scope.searchParameters.duration = 10;
-  $scope.searchParameters.regions = [
-    { text: "HK", checked: true },
-    { text: "KLN", checked: true },
-    { text: "N.T.", checked: true }
-  ];
+controllerModule.controller('FilterCtrl', function($scope, $http, $rootScope, $ionicModal, $timeout, apiUrl, SearchServices) {
+
+  $scope.searchParameters = SearchServices;
 
   var timeOut = 1000;
   var timeoutPromise;
@@ -33,8 +25,9 @@ controllerModule.controller('FilterCtrl', function($scope, $http, $rootScope, $t
     $http.get(url).success(function(data, status, xhr){
         $scope.results = data;
         $scope.loading = false;
-        console.log('data as sent by FilterCtrl', $scope.results);
-        $rootScope.$emit('searchResults', $scope.results);
+        // console.log('data as sent by FilterCtrl', $scope.results);
+        SearchServices.searchResults = $scope.results.trails;
+        // $rootScope.$emit('searchResults', $scope.results);
         // console.log($scope.searchParameters.regions.checked)
         $scope.noResults = $scope.results.trails.length < 1 ? true : false;
     })
@@ -77,6 +70,43 @@ controllerModule.controller('FilterCtrl', function($scope, $http, $rootScope, $t
   });
   $scope.$watch("searchParameters.regions[2].checked", function() {
     getParams();
+  });
+
+  $rootScope.$on("mapTrailClick", function (event, data) {
+    $http.get(apiUrl+"searchid?id="+data).success(function(data, status, xhr){
+        $scope.results = data;
+        console.log('data as sent by Map CLick', $scope.results);
+    })
+  });
+
+  $rootScope.$on("reset",function(event,data){
+
+  });
+
+  $ionicModal.fromTemplateUrl('intro-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+    $scope.modal.show();
+  });
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
   });
 
 })
