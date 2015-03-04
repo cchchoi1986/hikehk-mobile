@@ -98,3 +98,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $urlRouterProvider.otherwise('/tab/map');
 
 });
+
+var controllerModule = angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])

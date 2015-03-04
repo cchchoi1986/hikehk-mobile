@@ -45,9 +45,10 @@
       </div>
 
       <div class="item">
-        <h2>Current Weather:</h2>
-        <div>{{ weatherInfo.tempMin}}-{{ weatherInfo.tempMax }} ˚C</div>
-        <div>{{ weatherInfo.climate }}, {{ weatherInfo.description}}</div>
+        <h2>Weather:</h2>
+        <div class="info-weather">{{ weatherInfo.tempMin}}-{{ weatherInfo.tempMax }} ˚C</div>
+        <div class="info-weather">{{ weatherInfo.climate }}, {{ weatherInfo.description}}</div>
+        <p class="info-weather-update">Updated {{weatherInfo.time}}</p>
       </div>
 
       <div class="item">
