@@ -143,9 +143,10 @@
   /*border: 2px solid #363636;*/
   /*background: #363636;
   color: #e0efef;*/
-  position: fixed;
+  position: relative;
   height: 25vh;
-  top: 44px;
+  /*top: 44px;*/
+  margin-top: 6vh;
   left:0;
   width: 100vw;
   background: #e0efef;
@@ -187,8 +188,8 @@ div.regionlist.row > label {
 }
 
 .filter-list > div.item {
-  padding: 0;
-  margin: 0;
+  /*padding: 0;*/
+  /*margin: 0;*/
   border: 0;
   /*background: #363636;
   color: #e0efef;*/
@@ -230,7 +231,7 @@ div.regionlist.row > label {
 }
 
 .filler {
-  height: 25vh;
+  margin-top: 25vh;
 }
 
 .list.results-list {

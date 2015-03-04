@@ -13,10 +13,18 @@
         <div class="row">
           <div class="info-region">{{ trail.district }}
           </div>
-          <div class="link-coords">
-            <a class="map-link" href="/#/tab/map">Map <i class="icon ion-map"></i></a>
-          </div>
+          <!-- <div class="link-coords"> -->
+            <a class="map-link" href="#/tab/map">Map <i class="icon ion-map"></i></a>
+          <!-- </div> -->
+
         </div>
+
+        <a class="map-link" href="#/tab/map">
+          <button class="button button-light">
+            button-light
+          </button>
+        </a>
+
         <div class="row info-title">{{ trail.name }}</div>
         <ul ng-class="{'truncate-description' : !full}" class="description">
           <li class="desc-line" ng-repeat="description in trail.description">"{{ description }}"</li>
