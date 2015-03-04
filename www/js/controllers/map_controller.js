@@ -1,7 +1,6 @@
 controllerModule.controller('MapCtrl', function($scope, $http, $rootScope, $timeout, $ionicModal, apiUrl, uiGmapGoogleMapApi, $cordovaGeolocation, SearchServices) {
 
   console.log(SearchServices)
-
   var hikeMapStyle = [
     {
       "featureType":"landscape.natural",
@@ -52,22 +51,68 @@ controllerModule.controller('MapCtrl', function($scope, $http, $rootScope, $time
     }
   ];
 
-  var all_trails = function() {
-    $http.get(apiUrl+"trails").success(function(data, status, xhr){
-      $scope.allTrails = data;
-    })
+  $scope.allTrails = function() {
+    $http.get(apiUrl+'trails').success(function(data, status, xhr){
+      populateMarkers(data.trails);
+    });
   };
 
   $scope.resetMap = function() {
-    $scope.map = {
-      center: {
-        latitude: 22.337118,
-        longitude: 114.1453501
-      },
-      zoom: 12
+    SearchServices.start_coords = {
+      latitude: 22.337118,
+      longitude: 114.1453501
     };
-    populateMarkers($scope.allTrails);
-    $rootScope.$emit('reset', data);
+    SearchServices.polyline = [];
+    SearchServices.zoom = 11;
+    SearchServices.difficulty = 5;
+    SearchServices.scenery = 5;
+    SearchServices.distance = 24;
+    SearchServices.duration = 10;
+    SearchServices.regions = [
+      { text: "HK", checked: true },
+      { text: "KLN", checked: true },
+      { text: "N.T.", checked: true }
+    ];
+    $http.get(apiUrl + "search?" +
+      "duration="+SearchServices.duration +
+      "&difficulty="+SearchServices.difficulty +
+      "&scenery="+SearchServices.scenery +
+      "&distance="+SearchServices.distance +
+      "&hk="+SearchServices.regions[0].checked +
+      "&kln="+SearchServices.regions[1].checked +
+      "&nt="+SearchServices.regions[2].checked).success(function(data, status, xhr){
+        SearchServices.searchResults = data.trails;
+        console.log("new trails bro", SearchServices.searchResults);
+        populateMarkers(data.trails);
+    })
+    
+    $scope.map = {
+      center: { 
+        latitude: SearchServices.start_coords.latitude,
+        longitude: SearchServices.start_coords.longitude
+      },
+      zoom: SearchServices.zoom,
+    };
+    $scope.polylines = [
+      {
+          id: 999,
+          path: makeCoord(SearchServices.polyline), 
+          stroke: {
+              color: 'red',
+              weight: 3
+          },
+          editable: false,
+          draggable: false,
+          geodesic: false,
+          visible: true,
+          icons: [{
+              icon: {
+              },
+              offset: '25px',
+              repeat: '50px'
+          }]
+      }
+    ];
   };
 
   $scope.map = { 
@@ -104,9 +149,6 @@ controllerModule.controller('MapCtrl', function($scope, $http, $rootScope, $time
         click: function(id) {
           console.log("hihi");
           $rootScope.$emit("mapTrailClick", id.key)
-          var data = $http.get(apiUrl+'trails/'+id.key).success(function(data, status, xhr){
-            $scope.zoomTrail(data);
-          })
         }
       })
     };
@@ -125,24 +167,24 @@ controllerModule.controller('MapCtrl', function($scope, $http, $rootScope, $time
   }
 
   $scope.polylines = [
-      {
-          id: 999,
-          path: makeCoord(SearchServices.polyline), 
-          stroke: {
-              color: 'red',
-              weight: 3
+    {
+      id: 999,
+      path: makeCoord(SearchServices.polyline), 
+      stroke: {
+          color: 'red',
+          weight: 3
+      },
+      editable: false,
+      draggable: false,
+      geodesic: false,
+      visible: true,
+      icons: [{
+          icon: {
           },
-          editable: false,
-          draggable: false,
-          geodesic: false,
-          visible: true,
-          icons: [{
-              icon: {
-              },
-              offset: '25px',
-              repeat: '50px'
-          }]
-      }
+          offset: '25px',
+          repeat: '50px'
+      }]
+    }
   ];
 
 

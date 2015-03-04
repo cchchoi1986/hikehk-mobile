@@ -45,7 +45,7 @@ angular.module('starter.services', [])
     longitude: 114.1453501
   };
   searchParameters.polyline = [];
-  searchParameters.zoom = 12;
+  searchParameters.zoom = 11;
   searchParameters.difficulty = 5;
   searchParameters.scenery = 5;
   searchParameters.distance = 24;
