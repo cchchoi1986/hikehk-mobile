@@ -1,5 +1,5 @@
-<ion-view view-title="Map">
-  <ion-content scroll="false" class="padding map-wrap">
+<ion-view view-title="Map" ng-if="showMap">
+  <ion-content scroll="false" class="padding map-wrap" data-tap-disabled="true">
     <ui-gmap-google-map 
       center='map.center'
       zoom  ='map.zoom'
@@ -21,7 +21,8 @@
         <ui-gmap-windows 
           show="show">
           <div ng-non-bindable>
-            <h4>{{title}}</h4>
+            <p>{{title}}</p>
+            <a href="/#/tab/filter" ng-click="mapTrailClick()">Info</a>
           </div>
         </ui-gmap-windows>
       </ui-gmap-markers>
@@ -47,25 +48,12 @@
 
     </ui-gmap-google-map>
 
-    <div>Back</div>
+    <div>Restart</div>
 
-    <img src="https://cdn0.iconfinder.com/data/icons/app-tab-bar-icons-for-iphone/40/My_location.png">
+    <div class="reset-button" ng-click="resetMap()"><i class="icon ion-home"></i></div>
 
     <button ng-click="openModal()">hihi</button>
 
-    <script id="intro-modal.html" type="text/ng-template">
-      <ion-modal-view class="intro-modal">
-        <ion-content scroll="false" class="intro-modal-content">
-          <div class="intro-modal-background"></div>
-          <img class="intro-modal-image" src="http://i1191.photobucket.com/albums/z480/SLioy/Bloggable/HK/1.jpg">
-          <div class="intro-modal-overlay">
-            <p class="intro-modal-little-title">Welcome to </p>
-            <h1 class="intro-modal-title">HikeHK</h1>
-            <div class="intro-modal-message">A place to plan and explore the diverse hiking trails in Hong Kong</div>
-            <a class="intro-modal-button" ng-click="closeModal()" href="#/tab/filter"><button class="button button-full button-balanced">Lets Get Started</button></a>
-          </div>
-        </ion-content>
-      </ion-modal-view>
-    </script>
+    
   </ion-content>
 </ion-view>
