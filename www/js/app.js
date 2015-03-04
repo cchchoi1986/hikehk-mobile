@@ -9,7 +9,7 @@
 angular.module('urlConstant', []).constant('apiUrl', 'http://localhost:3000/')
 // angular.module('urlConstant', []).constant('apiUrl', 'http://hikehk.herokuapp.com/')
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'uiGmapgoogle-maps', 'ngCordova'])
+angular.module('starter', ['ionic', 'uiGmapgoogle-maps', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -38,14 +38,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
 
   $stateProvider
-
   // setup an abstract state for the tabs directive
   .state('tab', {
     url: "/tab",
     abstract: true,
     templateUrl: "templates/tabs.html"
   })
-
   .state('tab.map', {
     url: '/map',
     views: {
@@ -55,7 +53,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
-
   .state('tab.filter', {
     url: '/filter',
     views: {
@@ -92,9 +89,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   })
-
-
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/map');
 
 });
+
+var controllerModule = angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps']);

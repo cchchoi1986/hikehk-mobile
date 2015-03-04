@@ -1,4 +1,7 @@
 <ion-view view-title="Trail">
+  <!-- <ion-nav-bar class="bar-custom-dark">
+    <a class="navlink" href="/tab/filter">Filter</a>
+  </ion-nav-bar> -->
   <ion-content class="trail-cards">
   
     <div class="list card">
@@ -14,7 +17,7 @@
           <div class="info-region">{{ trail.district }}
           </div>
           <div class="link-coords">
-            <a class="map-link" href="/#/tab/map">See Map <i class="icon ion-map"></i></a>
+            <a class="map-link" href="/#/tab/map">Map <i class="icon ion-map"></i></a>
           </div>
         </div>
         <div class="row info-title">{{ trail.name }}</div>
@@ -45,9 +48,10 @@
       </div>
 
       <div class="item">
-        <h2>Current Weather:</h2>
-        <div>{{ weatherInfo.tempMin}}-{{ weatherInfo.tempMax }} ˚C</div>
-        <div>{{ weatherInfo.climate }}, {{ weatherInfo.description}}</div>
+        <h2>Weather:</h2>
+        <div class="info-weather">{{ weatherInfo.tempMin}}-{{ weatherInfo.tempMax }} ˚C</div>
+        <div class="info-weather">{{ weatherInfo.climate }}, {{ weatherInfo.description}}</div>
+        <p class="info-weather-update">Updated {{weatherInfo.time}}</p>
       </div>
 
       <div class="item">

@@ -1,54 +1,48 @@
 <ion-view view-title="Search">
-  <ion-content scroll=false>
-    <div>
-    <!-- <button ng-click="hidden=!hidden" class="resultslink button button-full button-outline button-balanced">
-      Hide Filter
-    </button> -->
-
-    <ion-list ng-hide="hidden">
-      <div class="filter-list">
-        <div class="filter-region">
-          <!-- <i class="icon ion-map"></i>
-          Select Region(s):  -->
-          <div class="regionlist row">
-            <ion-checkbox class="col col-30" ng-repeat="region in searchParameters.regions" ng-model="region.checked" ng-checked="region.checked">{{ region.text}}</ion-checkbox>
-          </div>
+  <!-- <ion-nav-bar class="bar-custom-dark">
+  </ion-nav-bar> -->
+  <ion-list class="bar bar-header">
+    <div class="filter-list">
+      <div class="filter-region">
+        <!-- <i class="icon ion-map"></i>
+        Select Region(s):  -->
+        <div class="regionlist row">
+          <ion-checkbox class="col col-30" ng-repeat="region in searchParameters.regions" ng-model="region.checked" ng-checked="region.checked">{{ region.text}}</ion-checkbox>
         </div>
-        <div class="range">
-          <div class="">
-            <div class="slider-title">Duration:</div>
-            <div class="slider-quant">{{searchParameters.duration}} hours</div>
-          </div>
-          <input type="range" name="searchParameters.duration" min="0" max="10" value="searchParameters.duration" step="1" ng-model="searchParameters.duration">
-          <i class="icon ion-ios-stopwatch-outline high"></i>
-        </div>
-        <div class="range">
-          <div class="">
-            <div class="slider-title">Distance:</div>
-            <div class="slider-quant">{{searchParameters.distance}} km</div>
-          </div>
-          <input type="range" name="searchParameters.distance" min="0" max="24" value="searchParameters.distance" step="1" ng-model="searchParameters.distance">
-          <i class="icon ion-android-walk high"></i>
-        </div>
-        
       </div>
-    </ion-list>
-
-    <div scroll="false" class="loading-background" ng-show="loading">
-      <img class="load-image" src="http://www.mountainhighhikers.org/j282782.gif">
+      <div class="range">
+        <div class="">
+          <div class="slider-title">Duration:</div>
+          <div class="slider-quant">{{searchParameters.duration}} hours</div>
+        </div>
+        <input type="range" name="searchParameters.duration" min="0" max="10" value="searchParameters.duration" step="1" ng-model="searchParameters.duration">
+        <i class="icon ion-ios-stopwatch-outline high"></i>
+      </div>
+      <div class="range">
+        <div class="">
+          <div class="slider-title">Distance:</div>
+          <div class="slider-quant">{{searchParameters.distance}} km</div>
+        </div>
+        <input type="range" name="searchParameters.distance" min="0" max="24" value="searchParameters.distance" step="1" ng-model="searchParameters.distance">
+        <i class="icon ion-android-walk high"></i>
+      </div>
     </div>
-
+  </ion-list>
+  <div scroll="false" class="loading-background" ng-show="loading">
+    <img class="load-image" src="http://www.mountainhighhikers.org/j282782.gif">
+  </div>
+  <div ng-if="noResults" class="no-results">No Trails Found, Please Try Again
+  </div>
+  <ion-content class="results-content">
     <div ng-show="!loading" class="list results-list">
-      <div ng-if="noResults" class="no-results">No Trails Found, Please Try Again
-      </div>
       <div ng-if="!noResults">
+        <div class="filler"></div>
         <a ng-click="selectTrail()" ng-repeat="result in results.trails" class="item item-thumbnail-left" href="#/tab/info/{{result.id}}">
           <img src="http://www.oasistrek.com/{{result.photo_urls[0]}}">
           <h2>
             {{ result.name }}
             <p>{{ result.region.district }}</p>
           </h2>
-          <!-- <p>{{ result.district }}</p> -->
           <div class="row">
             <div class="col-50 qualrating">Difficulty:
               <ul ng-bind-html="makeStars(result.difficulty)"></ul>
@@ -61,5 +55,19 @@
       </div>
     </div>
 
+    <script id="intro-modal.html" type="text/ng-template">
+      <ion-modal-view class="intro-modal">
+        <ion-content scroll="false" class="intro-modal-content">
+          <div class="intro-modal-background"></div>
+          <img class="intro-modal-image" src="http://i1191.photobucket.com/albums/z480/SLioy/Bloggable/HK/1.jpg">
+          <div class="intro-modal-overlay">
+            <p class="intro-modal-little-title">Welcome to </p>
+            <h1 class="intro-modal-title">HikeHK</h1>
+            <div class="intro-modal-message">A place to plan and explore the diverse hiking trails in Hong Kong</div>
+            <a class="intro-modal-button" ng-click="closeModal()" href="#/tab/map"><button class="button button-full button-balanced">Lets Get Started</button></a>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
   </ion-content>
 </ion-view>
