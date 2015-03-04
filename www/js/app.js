@@ -6,8 +6,8 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-angular.module('urlConstant', []).constant('apiUrl', 'http://localhost:3000/')
-// angular.module('urlConstant', []).constant('apiUrl', 'http://hikehk.herokuapp.com/')
+// angular.module('urlConstant', []).constant('apiUrl', 'http://localhost:3000/')
+angular.module('urlConstant', []).constant('apiUrl', 'http://hikehk.herokuapp.com/')
 
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'uiGmapgoogle-maps', 'ngCordova'])
 
@@ -98,3 +98,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $urlRouterProvider.otherwise('/tab/map');
 
 });
+
+var controllersModule = angular.module('starter.controllers', ['urlConstant', 'uiGmapgoogle-maps'])
