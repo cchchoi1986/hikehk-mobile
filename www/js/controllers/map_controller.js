@@ -99,7 +99,7 @@ controllerModule.controller('MapCtrl', function($scope, $http, $rootScope, $time
           path: makeCoord(SearchServices.polyline), 
           stroke: {
               color: 'red',
-              weight: 3
+              weight: 2
           },
           editable: false,
           draggable: false,

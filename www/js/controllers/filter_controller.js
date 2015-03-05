@@ -27,6 +27,8 @@ controllerModule.controller('FilterCtrl', function($scope, $http, $rootScope, $i
         $scope.loading = false;
         // console.log('data as sent by FilterCtrl', $scope.results);
         SearchServices.searchResults = $scope.results.trails;
+        SearchServices.polyline = [];
+        SearchServices.zoom = 11;
         // $rootScope.$emit('searchResults', $scope.results);
         // console.log($scope.searchParameters.regions.checked)
         $scope.noResults = $scope.results.trails.length < 1 ? true : false;
@@ -88,7 +90,7 @@ controllerModule.controller('FilterCtrl', function($scope, $http, $rootScope, $i
     animation: 'slide-in-up'
   }).then(function(modal) {
     $scope.modal = modal;
-    $scope.modal.show();
+    // $scope.modal.show();
   });
   $scope.openModal = function() {
     $scope.modal.show();
