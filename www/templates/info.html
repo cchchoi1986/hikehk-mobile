@@ -2,11 +2,11 @@
   <ion-content class="trail-cards">
   
     <div class="list card">
-
+      <h5>Pictures and route information sourced from <a href="http://www.oasistrek.com">Oasistrek.com</a></h5>
       <div class="trail-imagebox">
-        <img class="trail-image" src="http://www.oasistrek.com/{{ trail.photo_urls[0] }}">
-        <img class="trail-image" src="http://www.oasistrek.com/{{ trail.photo_urls[1] }}">
-        <img class="trail-image" src="http://www.oasistrek.com/{{ trail.photo_urls[2] }}">
+        <img class="trail-image" src="https://s3.amazonaws.com/hikehk/{{ parseURL(trail.photo_urls[0]) }}">
+        <img class="trail-image" src="https://s3.amazonaws.com/hikehk/{{ parseURL(trail.photo_urls[1]) }}">
+        <img class="trail-image" src="https://s3.amazonaws.com/hikehk/{{ parseURL(trail.photo_urls[2]) }}">
       </div>
 
       <div class="item">
@@ -85,7 +85,7 @@
       </div>
 
       <div class="trail-imagebox">
-        <img ng-repeat="photo in trail.photo_urls" class="trail-image" src="http://www.oasistrek.com/{{ photo }}">
+        <img ng-repeat="photo in trail.photo_urls" class="trail-image" src="https://s3.amazonaws.com/hikehk/{{ parseURL(photo) }}">
       </div>
 
     </div>

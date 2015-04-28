@@ -38,7 +38,7 @@
       <div ng-if="!noResults">
         <div class="filler">
           <a ng-click="selectTrail()" ng-repeat="result in results.trails" class="item item-thumbnail-left" href="#/tab/info/{{result.id}}">
-            <img src="http://www.oasistrek.com/{{result.photo_urls[0]}}">
+            <img src="https://s3.amazonaws.com/hikehk/{{parseURL(result.photo_urls[0])}}">
             <h2>
               {{ result.name }}
               <p>{{ result.region.district }}</p>

@@ -12,6 +12,10 @@ controllerModule.controller('FilterCtrl', function($scope, $http, $rootScope, $i
     }, timeOut);
   }
 
+  $scope.parseURL = function(url){
+    return url.replace(/\//g,'%252F');
+  }
+
   var submitParams = function() {
     var url = apiUrl + "search?" +
       "duration="+$scope.searchParameters.duration +
