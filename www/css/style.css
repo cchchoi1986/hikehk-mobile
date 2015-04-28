@@ -339,6 +339,17 @@ div.regionlist.row > label {
   background: #e0efef;
 }
 
+.list.card > h5 {
+  background: #363636;
+  opacity: 0.7;
+  color: #e0efef;
+  margin: 0;
+}
+
+.list.card > h5 > a {
+  color: rgb(72, 231, 18);
+}
+
 .resultslink {
   text-decoration: none;
   margin: 0;

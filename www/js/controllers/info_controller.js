@@ -15,6 +15,9 @@ controllerModule.controller('InfoCtrl', function($scope, $http, $rootScope, $sta
     $rootScope.$emit('selectTrail', $scope.trail);
   })
 
+  $scope.parseURL = function(url){
+    return url.replace(/\//g,'%252F');
+  }
 
   $scope.makeStars = function(factor) {
     range = 5;
